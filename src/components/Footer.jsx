@@ -74,7 +74,7 @@ function Footer() {
         <div className="flex md:flex-row flex-col gap-7 items-center justify-between w-full">
           <img
             src="./Desktop-Image/logo-light.png"
-            alt=""
+            alt="image"
             className="w-[200px] md:w-[215px]"
           />
           <div className="h-[2px] bg-white opacity-10 w-[100%] mt-1 md:hidden"></div>

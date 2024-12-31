@@ -156,12 +156,12 @@ function AboutDetail() {
         <div>
           <img
             src="./Mobile-Images/image-about-hero.jpg"
-            alt=""
+            alt="image"
             className="sm:hidden about-img"
           />
           <img
             src="./Tablet-image/image-about-hero.jpg"
-            alt=""
+            alt="image"
             className="hidden sm:block  w-full object-cover xl:rounded-r-2xl xl:h-full xl:rounded-none md:rounded-t-2xl  xl:w-[300px]"
           />
         </div>
@@ -183,18 +183,18 @@ function AboutDetail() {
       <div className="md:mx-16 md:mt-28 xl:flex xl:items-stretch xl:mt-40">
         <img
           src="./Mobile-Images/image-world-class-talent.jpg"
-          alt=""
+          alt="image"
           className="sm:hidden talent-img"
         />
         <img
           src="./Tablet-image/image-world-class-talent.jpg"
-          alt=""
+          alt="image"
           className="hidden sm:block w-full md:rounded-t-2xl xl:hidden talent-img"
         />
 
         <img
           src="./Desktop-Image/image-world-class-talent.jpg"
-          alt=""
+          alt="image"
           className="hidden  xl:block w-full md:rounded-l-2xl"
         />
         <div className="relative overflow-hidden md:rounded-b-2xl xl:rounded-none xl:rounded-r-2xl">
@@ -290,17 +290,17 @@ function AboutDetail() {
       <div className="mt-24 md:mx-16 xl:flex xl:flex-row-reverse xl:items-stretch xl:mt-40 xl:mb-80">
         <img
           src="./Mobile-Images/image-real-deal.jpg"
-          alt=""
+          alt="image"
           className="sm:hidden deal-img"
         />
         <img
           src="./Tablet-image/image-real-deal.jpg"
-          alt=""
+          alt="image"
           className="hidden sm:block md:rounded-t-2xl md:w-full xl:hidden deal-img"
         />
         <img
           src="./Desktop-Image/image-real-deal.jpg"
-          alt=""
+          alt="image"
           className=" md:rounded-t-2xl md:w-full xl:flex hidden xl:rounded-r-2xl xl:rounded-none deal-img"
         />
         <div className="relative overflow-hidden ">

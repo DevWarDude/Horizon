@@ -108,7 +108,7 @@ function Award() {
           <img
             src="./Desktop-Image/image-hero-phone.png"
             className="sm:-mt-32 md:-mt-40 xl:-mt-[575px] -mt-[53px] "
-            alt=""
+            alt="image"
           />
         </div>
       </div>

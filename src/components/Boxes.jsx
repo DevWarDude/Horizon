@@ -6,7 +6,7 @@ export function Project(prop) {
     <div className="hover:bg-[#E7816B] bg-[#ffebe6] hover:text-white mx-6 rounded-2xl md:overflow-hidden duration-500 hover:border-[#ffffff27] text-neutral-700 border-[.0009rem] product cursor-pointer sm:text-lg md:flex md:mx-16 xl:mx-0 xl:flex-col ">
       <img
         src={prop.img}
-        alt=""
+        alt="image"
         className="rounded-t-2xl sm:w-full object-cover sm:h-[340px] md:rounded-t-none   md:w-[50%] xl:w-[100%]"
       />
       <div className="flex flex-col items-center text-center py-10 gap-5 px-8 md:justify-center md:w-[50%] md:px-7 lg:px-16 xl:w-[100%] xl:px-6">

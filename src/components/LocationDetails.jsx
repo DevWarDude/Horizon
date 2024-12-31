@@ -47,12 +47,12 @@ function LocationDetails() {
         <img
           src="./Desktop-Image/image-map-canada.png"
           className="sm:hidden xl:flex xl:rounded-2xl"
-          alt=""
+          alt="map"
         />
         <img
           src="./Tablet-image/image-map-canada.png"
           className="hidden sm:block w-full md:rounded-2xl xl:hidden"
-          alt=""
+          alt="map"
         />
         <div className="bg-[#f4ecea] flex flex-col justify-center items-center py-24 text-lg rounded-2xl md:items-start xl:whitespace-nowrap xl:flex-1 ">
           <div className="md:mx-24 md:w-[60%] flex flex-col items-center md:items-start address">
@@ -80,12 +80,12 @@ function LocationDetails() {
         <img
           src="./Desktop-Image/image-map-australia.png"
           className="sm:hidden xl:flex xl:rounded-2xl"
-          alt=""
+          alt="map"
         />
         <img
           src="./Tablet-image/image-map-australia.png"
           className="hidden sm:block w-full md:rounded-2xl xl:hidden"
-          alt=""
+          alt="map"
         />
         <div className="bg-[#f4ecea] flex flex-col justify-center items-center py-24 text-lg rounded-2xl md:items-start xl:whitespace-nowrap xl:flex-1">
           <div className="md:mx-24 md:w-[60%] flex flex-col items-center md:items-start address">
@@ -112,12 +112,12 @@ function LocationDetails() {
       <div className="flex  flex-col sm:gap-8 xl:flex-row-reverse xl:justify-between xl:mb-20 bg">
         <img
           src="./Desktop-Image/image-map-united-kingdom.png"
-          alt=""
+          alt="map"
           className="sm:hidden xl:flex xl:rounded-2xl"
         />
         <img
           src="./Tablet-image/image-map-uk.png"
-          alt=""
+          alt="map"
           className="hidden sm:block w-full md:rounded-2xl xl:hidden"
         />
         <div className="bg-[#f4ecea] flex flex-col justify-center items-center py-24 text-lg rounded-2xl md:items-start xl:whitespace-nowrap xl:flex-1 ">
