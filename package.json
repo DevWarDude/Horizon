@@ -7,8 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "postbuild": "cp build/index.html build/404.html"
+    "preview": "vite preview"
   },
   "dependencies": {
     "framer-motion": "^11.15.0",
