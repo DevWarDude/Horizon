@@ -78,7 +78,7 @@ function Award() {
           </span>
           <Link
             className="mt-5 text-stone-600 tracking-wide bg-white rounded-lg px-7 py-4 font-medium shadow-2xl link"
-            to={"Designo/About"}
+            to={"/About"}
           >
             LEARN MORE
           </Link>

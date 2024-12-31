@@ -12,13 +12,13 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/Designo/" element={<HomePage />} />
-        <Route path="/Designo/about" element={<About />} />
-        <Route path="/Designo/location" element={<Location />} />
-        <Route path="/Designo/contact" element={<Contact />} />
-        <Route path="/Designo/webdesign" element={<WebDesign />} />
-        <Route path="/Designo/graphicsdesign" element={<GraphicsDesign />} />
-        <Route path="/Designo/appdesign" element={<AppDesign />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<About />} />
+        <Route path="//location" element={<Location />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/webdesign" element={<WebDesign />} />
+        <Route path="/graphicsdesign" element={<GraphicsDesign />} />
+        <Route path="/appdesign" element={<AppDesign />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

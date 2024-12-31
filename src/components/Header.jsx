@@ -20,7 +20,7 @@ function Header() {
     <>
       {/* // header */}
       <header className="flex lg:px-16 items-center justify-between p-8 relative font-jost md:py-20 md:px-16 sm:py-10 z-[90]">
-        <Link to={"/Designo/"}>
+        <Link to={"/"}>
           <img src="./logo-dark.webp" alt="Logo" className="w-[200px]" />
         </Link>
         {!showMenu && (
@@ -37,13 +37,13 @@ function Header() {
           />
         )}
         <ul className="hidden md:flex gap-12 tracking-widest text-neutral-800">
-          <Link to={"Designo/About"}>
+          <Link to={"/About"}>
             <li className="links">OUR COMPANY</li>
           </Link>
-          <Link to={"Designo/Location"}>
+          <Link to={"/Location"}>
             <li className="links">LOCATIONS</li>
           </Link>
-          <Link to={"Designo/Contact"}>
+          <Link to={"/Contact"}>
             <li className="links">CONTACT</li>
           </Link>
         </ul>
@@ -58,16 +58,13 @@ function Header() {
           className={`text-neutral-300 font-medium tracking-wider p-14 flex flex-col gap-6 text-xl 
            `}
         >
-          <Link to={"Designo/About"} onClick={() => setShowMenu((is) => !is)}>
+          <Link to={"/About"} onClick={() => setShowMenu((is) => !is)}>
             <li className="links">OUR COMPANY</li>
           </Link>
-          <Link
-            to={"Designo/Location"}
-            onClick={() => setShowMenu((is) => !is)}
-          >
+          <Link to={"/Location"} onClick={() => setShowMenu((is) => !is)}>
             <li className="links">LOCATIONS</li>
           </Link>
-          <Link to={"Designo/Contact"} onClick={() => setShowMenu((is) => !is)}>
+          <Link to={"/Contact"} onClick={() => setShowMenu((is) => !is)}>
             <li className="links">CONTACT</li>
           </Link>
         </ul>

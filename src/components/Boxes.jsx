@@ -72,7 +72,7 @@ export function Location(prop) {
       </div>
       <Link
         className="bg-[#E7816B] text-white py-5 px-6 rounded-xl font-medium tracking-wide"
-        to={"Designo/Location"}
+        to={"/Location"}
       >
         SEE LOCATION
       </Link>
