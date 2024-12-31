@@ -90,7 +90,7 @@ function AppDesign() {
         />
         <ProjectLink
           type="GRAPHIC DESIGN"
-          link={"/Designo/GraphicsDesign"}
+          link={"/GraphicsDesign"}
           bg="bg-[url('../public/Desktop-Image/image-graphic-design.jpg')]"
           className="py-20 lg:py-28  xl:mx-0 graphic"
           size="tracking-[3px] lg:tracking-[2px]"

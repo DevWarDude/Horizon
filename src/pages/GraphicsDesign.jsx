@@ -72,14 +72,14 @@ function GraphicsDesign() {
       <div className="mx-6 mt-20 flex flex-col gap-7 xl:flex-row xl:grid grid-cols-2 xl:mx-32 xl:my-36 xl:mb-80">
         <ProjectLink
           type="APP DESIGN"
-          link={"/Designo/AppDesign"}
+          link={"/AppDesign"}
           bg="bg-[url('../public/Desktop-Image/image-app-design.jpg')]"
           className="py-20 lg:py-28  xl:mx-0 app"
           size="tracking-[3px]"
         />
         <ProjectLink
           type="WEB DESIGN"
-          link={"/Designo/WebDesign"}
+          link={"/WebDesign"}
           bg="bg-[url('../public/Desktop-Image/image-web-design-small.jpg')]"
           className="py-20 lg:py-28  xl:mx-0 web"
           size="tracking-[3px]"
