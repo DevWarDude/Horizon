@@ -37,13 +37,13 @@ function Header() {
           />
         )}
         <ul className="hidden md:flex gap-12 tracking-widest text-neutral-800">
-          <Link to={"/About"}>
+          <Link to={"/Designo/About"}>
             <li className="links">OUR COMPANY</li>
           </Link>
-          <Link to={"/Location"}>
+          <Link to={"/Designo/Location"}>
             <li className="links">LOCATIONS</li>
           </Link>
-          <Link to={"/Contact"}>
+          <Link to={"/Designo/Contact"}>
             <li className="links">CONTACT</li>
           </Link>
         </ul>
@@ -58,13 +58,19 @@ function Header() {
           className={`text-neutral-300 font-medium tracking-wider p-14 flex flex-col gap-6 text-xl 
            `}
         >
-          <Link to={"/About"} onClick={() => setShowMenu((is) => !is)}>
+          <Link to={"/Designo/About"} onClick={() => setShowMenu((is) => !is)}>
             <li className="links">OUR COMPANY</li>
           </Link>
-          <Link to={"/Location"} onClick={() => setShowMenu((is) => !is)}>
+          <Link
+            to={"/Designo/Location"}
+            onClick={() => setShowMenu((is) => !is)}
+          >
             <li className="links">LOCATIONS</li>
           </Link>
-          <Link to={"/Contact"} onClick={() => setShowMenu((is) => !is)}>
+          <Link
+            to={"/Designo/Contact"}
+            onClick={() => setShowMenu((is) => !is)}
+          >
             <li className="links">CONTACT</li>
           </Link>
         </ul>
