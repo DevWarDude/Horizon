@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.trans {
+  transition: opacity 0.5s;
+}
+
+.product:hover {
+  transform: scale(1.04);
+}
+.product:hover .name {
+  color: white;
+}
