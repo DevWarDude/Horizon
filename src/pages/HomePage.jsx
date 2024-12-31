@@ -73,7 +73,7 @@ function HomePage() {
           <ProjectLink
             type="WEB DESIGN"
             link={"/Designo/WebDesign"}
-            bg="bg-[url('../Desktop-Image/image-web-design-small.jpg')]"
+            bg="bg-[url('../public/Desktop-Image/image-web-design-small.jpg')]"
             className="lg:px-7 lg:m-0 lg:py-64 lg:whitespace-nowrap web"
           />
           <div className="flex gap-6 flex-col lg:justify-between lg:gap-5">
@@ -87,7 +87,7 @@ function HomePage() {
             <ProjectLink
               type="GRAPHIC DESIGN"
               link={"/Designo/GraphicsDesign"}
-              bg="bg-[url('./Desktop-Image/image-graphic-design.jpg')]"
+              bg="bg-[url('../public/Desktop-Image/image-graphic-design.jpg')]"
               className="lg:px-7 lg:py-28 lg:m-0 graphic"
               size="lg:text-4xl"
             />

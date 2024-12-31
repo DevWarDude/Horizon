@@ -68,7 +68,7 @@ function WebDesign() {
             description="A ste-of-the-art music player with high-resolution audion DSP effects"
           />
           <Project
-            img="../Desktop-Image/image-builder.jpg"
+            img="./Desktop-Image/image-builder.jpg"
             name="BUILDER"
             description="Connects users with local contractors based on their location"
           />
@@ -89,14 +89,14 @@ function WebDesign() {
         <ProjectLink
           type="APP DESIGN"
           link={"/Designo/AppDesign"}
-          bg="bg-[url('./Desktop-Image/image-app-design.jpg')]"
+          bg="bg-[url('../public/Desktop-Image/image-app-design.jpg')]"
           className="py-20 lg:py-28  xl:mx-0 app"
           size="tracking-[3px] lg:tracking-[2px]"
         />
         <ProjectLink
           type="GRAPHIC DESIGN"
           link={"/Designo/GraphicsDesign"}
-          bg="bg-[url('./Desktop-Image/image-graphic-design.jpg')]"
+          bg="bg-[url('../public/Desktop-Image/image-graphic-design.jpg')]"
           className="py-20 xl:mx-0 lg:py-28 graphic"
           size="tracking-[3px] lg:tracking-[2px]"
         />

@@ -84,14 +84,14 @@ function AppDesign() {
         <ProjectLink
           type="WEB DESIGN"
           link={"/Designo/WebDesign"}
-          bg="bg-[url('./Desktop-Image/image-web-design-small.jpg')]"
+          bg="bg-[url('../public/Desktop-Image/image-web-design-small.jpg')]"
           className="py-20 lg:py-28  xl:mx-0 web"
           size="tracking-[3px] lg:tracking-[2px]"
         />
         <ProjectLink
           type="GRAPHIC DESIGN"
           link={"/Designo/GraphicsDesign"}
-          bg="bg-[url('./Desktop-Image/image-graphic-design.jpg')]"
+          bg="bg-[url('../public/Desktop-Image/image-graphic-design.jpg')]"
           className="py-20 lg:py-28  xl:mx-0 graphic"
           size="tracking-[3px] lg:tracking-[2px]"
         />
