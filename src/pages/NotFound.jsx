@@ -21,7 +21,7 @@ function NotFound() {
     <div className="bg-gray-950">
       {/* // header */}
       <header className="flex lg:px-16 items-center justify-between p-8 relative font-jost md:py-20 md:px-16 sm:py-10 z-[90] text-white">
-        <Link to={"/"}>
+        <Link to={"/Designo/"}>
           <img
             src="./Desktop-Image/logo-light.png"
             alt="Logo"
@@ -42,13 +42,13 @@ function NotFound() {
           />
         )}
         <ul className="hidden md:flex gap-12 tracking-widest ">
-          <Link to={"/About"}>
+          <Link to={"/Designo/About"}>
             <li className="links">OUR COMPANY</li>
           </Link>
-          <Link to={"/Location"}>
+          <Link to={"/Designo/Location"}>
             <li className="links">LOCATIONS</li>
           </Link>
-          <Link to={"/Contact"}>
+          <Link to={"/Designo/Contact"}>
             <li className="links">CONTACT</li>
           </Link>
         </ul>
@@ -66,10 +66,16 @@ function NotFound() {
           <Link to={"/About"} onClick={() => setShowMenu((is) => !is)}>
             <li className="links">OUR COMPANY</li>
           </Link>
-          <Link to={"/Location"} onClick={() => setShowMenu((is) => !is)}>
+          <Link
+            to={"/Designo/Location"}
+            onClick={() => setShowMenu((is) => !is)}
+          >
             <li className="links">LOCATIONS</li>
           </Link>
-          <Link to={"/Contact"} onClick={() => setShowMenu((is) => !is)}>
+          <Link
+            to={"/Designo/Contact"}
+            onClick={() => setShowMenu((is) => !is)}
+          >
             <li className="links">CONTACT</li>
           </Link>
         </ul>
