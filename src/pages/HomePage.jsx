@@ -73,14 +73,14 @@ function HomePage() {
           <ProjectLink
             type="WEB DESIGN"
             link={"/Designo/WebDesign"}
-            bg="bg-[url('./Desktop-Image/image-web-design-small.jpg')]"
+            bg="bg-[url('../Desktop-Image/image-web-design-small.jpg')]"
             className="lg:px-7 lg:m-0 lg:py-64 lg:whitespace-nowrap web"
           />
           <div className="flex gap-6 flex-col lg:justify-between lg:gap-5">
             <ProjectLink
               type="APP DESIGN"
               link={"/Designo/AppDesign"}
-              bg="bg-[url('./Desktop-Image/image-app-design.jpg')]"
+              bg="bg-[url('../public/Desktop-Image/image-app-design.jpg')]"
               className="lg:px-7 lg:m-0 lg:py-28 app"
               size="lg:text-4xl"
             />
