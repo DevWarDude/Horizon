@@ -14,7 +14,7 @@ function Footer() {
         scrollTrigger: {
           trigger: ".top",
           start: "top 100%",
-          toggleActions: "play none none ",
+          toggleActions: "play none none reverse",
         },
       }
     );
@@ -29,7 +29,7 @@ function Footer() {
         scrollTrigger: {
           trigger: ".bottom",
           start: "top 100%",
-          toggleActions: "play none none ",
+          toggleActions: "play none none reverse",
         },
       }
     );
@@ -44,7 +44,7 @@ function Footer() {
         scrollTrigger: {
           trigger: ".link",
           start: "top 100%",
-          toggleActions: "play none none ",
+          toggleActions: "play none none reverse",
         },
       }
     );
@@ -52,8 +52,8 @@ function Footer() {
 
   return (
     <footer className=" mt-80 text-white bg-[#1D1c1E] relative  font-jost md:text-lg md:px-5 md:mt-96 md:pb-5 lg:mt-64 lg:px-16">
-      <div className="absolute w-[90%] left-[5%] right-[5%] md:top-[-40%] top-[-15%] lg:pt-0 md:left-16 md:w-fit md:right-16 ">
-        <div className=" bg-[#E7816B] py-12 pt-16 px-5 mt-[-50px] lg:mt-[0px] rounded-2xl shadow-xl md:px-14  lg:py-16 xl:w-[calc(100vw-145px)] w-[calc(100vw-145px)">
+      <div className="absolute w-[90%] left-[5%] right-[5%] md:top-[-40%] top-[-15%] lg:pt-0 md:left-16 md:w-[calc(100vw-145px)] md:right-16 ">
+        <div className=" bg-[#E7816B] py-12 pt-16 px-5 mt-[-50px] lg:mt-[0px] rounded-2xl shadow-xl md:px-14  lg:py-16">
           <div className="flex flex-col items-center justify-center text-center gap-6 lg:flex-row xl:justify-between">
             <div className="flex flex-col gap-3 lg:gap-5">
               <div className="text-3xl font-semibold tracking-wide md:text-5xl lg:font-medium  lg:text-start sm:px-16 sm:text-4xl lg:px-0 lg:w-[400px] top">

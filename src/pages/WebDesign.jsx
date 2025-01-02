@@ -18,7 +18,7 @@ function WebDesign() {
         scrollTrigger: {
           trigger: ".app",
           start: "top 100%",
-          toggleActions: "play none none ",
+          toggleActions: "play none none reverse",
         },
       }
     );
@@ -34,7 +34,7 @@ function WebDesign() {
         scrollTrigger: {
           trigger: ".graphic",
           start: "top 100%",
-          toggleActions: "play none none ",
+          toggleActions: "play none none reverse",
         },
       }
     );

@@ -16,7 +16,7 @@ function AboutDetail() {
         scrollTrigger: {
           trigger: ".about-img",
           start: "top 100%",
-          toggleActions: "play none none ",
+          toggleActions: "play none none reverse",
         },
       }
     );
@@ -32,7 +32,7 @@ function AboutDetail() {
         scrollTrigger: {
           trigger: ".about-details",
           start: "top 100%",
-          toggleActions: "play none none ",
+          toggleActions: "play none none reverse",
         },
       }
     );
@@ -47,7 +47,7 @@ function AboutDetail() {
         scrollTrigger: {
           trigger: ".talent-img",
           start: "top 100%",
-          toggleActions: "play none none ",
+          toggleActions: "play none none reverse",
         },
       }
     );
@@ -62,7 +62,7 @@ function AboutDetail() {
         scrollTrigger: {
           trigger: ".talent-header",
           start: "top 100%",
-          toggleActions: "play none none ",
+          toggleActions: "play none none reverse",
         },
       }
     );
@@ -79,7 +79,7 @@ function AboutDetail() {
           scrollTrigger: {
             trigger: text,
             start: "top 100%",
-            toggleActions: "play none none ",
+            toggleActions: "play none none reverse",
           },
         }
       );
@@ -96,7 +96,7 @@ function AboutDetail() {
           scrollTrigger: {
             trigger: location,
             start: "top 100%",
-            toggleActions: "play none none",
+            toggleActions: "play none none reverse",
           },
         }
       );
@@ -112,7 +112,7 @@ function AboutDetail() {
         scrollTrigger: {
           trigger: ".deal-img",
           start: "top 100%",
-          toggleActions: "play none none ",
+          toggleActions: "play none none reverse",
         },
       }
     );
@@ -127,7 +127,7 @@ function AboutDetail() {
         scrollTrigger: {
           trigger: ".talent-header",
           start: "top 100%",
-          toggleActions: "play none none ",
+          toggleActions: "play none none reverse",
         },
       }
     );
@@ -143,7 +143,7 @@ function AboutDetail() {
           scrollTrigger: {
             trigger: text,
             start: "top 100%",
-            toggleActions: "play none none ",
+            toggleActions: "play none none reverse",
           },
         }
       );
@@ -157,7 +157,7 @@ function AboutDetail() {
           <img
             src="./Mobile-Images/image-about-hero.jpg"
             alt="image"
-            className="sm:hidden about-img"
+            className="sm:hidden about-img w-full"
           />
           <img
             src="./Tablet-image/image-about-hero.jpg"
@@ -184,7 +184,7 @@ function AboutDetail() {
         <img
           src="./Mobile-Images/image-world-class-talent.jpg"
           alt="image"
-          className="sm:hidden talent-img"
+          className="sm:hidden talent-img w-full"
         />
         <img
           src="./Tablet-image/image-world-class-talent.jpg"
@@ -291,7 +291,7 @@ function AboutDetail() {
         <img
           src="./Mobile-Images/image-real-deal.jpg"
           alt="image"
-          className="sm:hidden deal-img"
+          className="sm:hidden deal-img w-full"
         />
         <img
           src="./Tablet-image/image-real-deal.jpg"

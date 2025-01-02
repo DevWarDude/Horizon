@@ -18,7 +18,7 @@ function Contact() {
         scrollTrigger: {
           trigger: ".contact",
           start: "top 100%",
-          toggleActions: "play none none ",
+          toggleActions: "play none none reverse",
         },
       }
     );

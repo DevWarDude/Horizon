@@ -16,7 +16,7 @@ function LocationDetails() {
           scrollTrigger: {
             trigger: bg,
             start: "top 100%",
-            toggleActions: "play none none ",
+            toggleActions: "play none none reverse",
           },
         }
       );
@@ -34,7 +34,7 @@ function LocationDetails() {
           scrollTrigger: {
             trigger: location,
             start: "top 100%",
-            toggleActions: "play none none",
+            toggleActions: "play none none reverse",
           },
         }
       );

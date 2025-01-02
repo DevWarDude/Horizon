@@ -44,9 +44,9 @@ function Award() {
   }, []);
 
   return (
-    <div className=" text-white inset-0 bg-[#E7816B] text-center font-jost pt-16 px-5 relative h-[97vh] overflow-hidden md:mx-16 md:rounded-2xl shadow-xl lg:h-[115vh] md:mt-0 sm:h-[85vh] xl:h-[76vh] xl:p-0 z-50">
+    <div className=" text-white inset-0 bg-[#E7816B] text-center font-jost pt-16 px-5 relative h-[680px] overflow-hidden md:mx-16 md:rounded-2xl shadow-xl lg:h-[700px] md:mt-0 sm:h-[760px] xl:h-[76vh] xl:p-0 z-50">
       <svg
-        className="w-[100%] h-[100%] xl:hidden  absolute opacity-100 top-0"
+        className="w-[100%] h-[100%] xl:hidden  absolute top-0"
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>

@@ -42,7 +42,7 @@ function HomePage() {
         scrollTrigger: {
           trigger: ".app",
           start: "top 100%",
-          toggleActions: "play none none ",
+          toggleActions: "play none none reverse",
         },
       }
     );
@@ -58,7 +58,7 @@ function HomePage() {
         scrollTrigger: {
           trigger: ".graphic",
           start: "top 100%",
-          toggleActions: "play none none ",
+          toggleActions: "play none none reverse",
         },
       }
     );

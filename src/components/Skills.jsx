@@ -32,7 +32,7 @@ function Skills() {
           scrollTrigger: {
             trigger: skill,
             start: "top 100%",
-            toggleActions: "play none none",
+            toggleActions: "play none none reverse",
           },
         }
       );

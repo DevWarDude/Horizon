@@ -16,7 +16,7 @@ function ProjectDetails(prop) {
           scrollTrigger: {
             trigger: text,
             start: "top 100%",
-            toggleActions: "play none none ",
+            toggleActions: "play none none reverse",
           },
         }
       );
@@ -33,7 +33,7 @@ function ProjectDetails(prop) {
           scrollTrigger: {
             trigger: location,
             start: "top 100%",
-            toggleActions: "play none none",
+            toggleActions: "play none none reverse",
           },
         }
       );
