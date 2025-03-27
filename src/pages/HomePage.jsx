@@ -65,38 +65,40 @@ function HomePage() {
   }, []);
 
   return (
-    <div>
-      <Header />
-      <Award />
-      <div className="mt-24 p-7 flex flex-col gap-6 lg:mt-40 lg:items-center">
-        <div className="lg:flex-row lg:text-center flex flex-col gap-6 lg:gap-5 ">
-          <ProjectLink
-            type="WEB DESIGN"
-            link={"/WebDesign"}
-            bg="bg-[url('../public/Desktop-Image/image-web-design-small.jpg')]"
-            className="lg:px-7 lg:m-0 lg:py-64 lg:whitespace-nowrap web"
-          />
-          <div className="flex gap-6 flex-col lg:justify-between lg:gap-5">
+    <>
+      <div>
+        <Header />
+        <Award />
+        <div className="mt-24 p-7 flex flex-col gap-6 lg:mt-40 lg:items-center">
+          <div className="lg:flex-row lg:text-center flex flex-col gap-6 lg:gap-5 ">
             <ProjectLink
-              type="APP DESIGN"
-              link={"/AppDesign"}
-              bg="bg-[url('../public/Desktop-Image/image-app-design.jpg')]"
-              className="lg:px-7 lg:m-0 lg:py-28 app"
-              size="lg:text-4xl"
+              type="WEB DESIGN"
+              link={"/WebDesign"}
+              bg="bg-[url('../public/Desktop-Image/image-web-design-small.jpg')]"
+              className="lg:px-7 lg:m-0 lg:py-64 lg:whitespace-nowrap web"
             />
-            <ProjectLink
-              type="GRAPHIC DESIGN"
-              link={"/GraphicsDesign"}
-              bg="bg-[url('../public/Desktop-Image/image-graphic-design.jpg')]"
-              className="lg:px-7 lg:py-28 lg:m-0 graphic"
-              size="lg:text-4xl"
-            />
+            <div className="flex gap-6 flex-col lg:justify-between lg:gap-5">
+              <ProjectLink
+                type="APP DESIGN"
+                link={"/AppDesign"}
+                bg="bg-[url('../public/Desktop-Image/image-app-design.jpg')]"
+                className="lg:px-7 lg:m-0 lg:py-28 app"
+                size="lg:text-4xl"
+              />
+              <ProjectLink
+                type="GRAPHIC DESIGN"
+                link={"/GraphicsDesign"}
+                bg="bg-[url('../public/Desktop-Image/image-graphic-design.jpg')]"
+                className="lg:px-7 lg:py-28 lg:m-0 graphic"
+                size="lg:text-4xl"
+              />
+            </div>
           </div>
         </div>
+        <Skills />
+        <Footer />
       </div>
-      <Skills />
-      <Footer />
-    </div>
+    </>
   );
 }
 
