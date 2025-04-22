@@ -1,32 +1,43 @@
-import { Route, Routes, BrowserRouter as Router } from "react-router";
+import { Route, Routes, BrowserRouter as Router, Navigate } from "react-router";
 import { lazy, Suspense } from "react";
+import { ThemeProvider } from "./context/ThemeContext";
+
+const Login = lazy(() => import("./pages/Login"));
+const SignUp = lazy(() => import("./pages/SignUp"));
+const HomeLayout = lazy(() => import("./pages/HomeLayout"));
+const Loan = lazy(() => import("./pages/Loan"));
+const TransactionHistory = lazy(() => import("./pages/TransactionHistory"));
+const TransferFunds = lazy(() => import("./pages/TransferFunds"));
+const Settings = lazy(() => import("./pages/Settings"));
+const ConnectBank = lazy(() => import("./pages/ConnectBank"));
+const Dashboard = lazy(() => import("./pages/Dashboard"));
 import Loading from "./components/Loading";
 
-const HomePage = lazy(() => import("./pages/HomePage"));
-const About = lazy(() => import("./pages/About"));
-const Location = lazy(() => import("./pages/Location"));
-const NotFound = lazy(() => import("./pages/NotFound"));
-const Contact = lazy(() => import("./pages/Contact"));
-const WebDesign = lazy(() => import("./pages/WebDesign"));
-const GraphicsDesign = lazy(() => import("./pages/GraphicsDesign"));
-const AppDesign = lazy(() => import("./pages/HomePage"));
 
 function App() {
   return (
-    <Router>
-      <Suspense fallback={<Loading />}>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/location" element={<Location />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/webdesign" element={<WebDesign />} />
-          <Route path="/graphicsdesign" element={<GraphicsDesign />} />
-          <Route path="/appdesign" element={<AppDesign />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Suspense>
-    </Router>
+    <ThemeProvider>
+      <Router>
+        <Suspense fallback={<Loading />}>
+          <Routes>
+            <Route path="sign-in" element={<Login />} />
+            <Route path="/:user" element={<HomeLayout />}>
+              <Route index element={<Navigate replace to="dashboard" />} />
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route
+                path="transaction-history"
+                element={<TransactionHistory />}
+              />
+              <Route path="transfer-funds" element={<TransferFunds />} />
+              <Route path="connect-bank" element={<ConnectBank />} />
+              <Route path="settings" element={<Settings />} />
+              <Route path="Loan" element={<Loan />} />
+            </Route>
+            <Route path="sign-up" element={<SignUp />} />
+          </Routes>
+        </Suspense>
+      </Router>
+    </ThemeProvider>
   );
 }
 

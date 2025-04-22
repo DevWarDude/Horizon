@@ -1,75 +1,51 @@
-// import { } from "framer-;
-import gsap from "gsap";
-import { useEffect, useState } from "react";
-import { FaBars, FaTimes } from "react-icons/fa";
-import { Link } from "react-router";
+import { Bell, ChevronsLeft, Moon, Search, Sun } from "lucide-react";
+import { useTheme } from "../context/ThemeContext";
 
-function Header() {
-  const [showMenu, setShowMenu] = useState(false);
-  useEffect(() => {
-    gsap.fromTo(".links", { y: 20 }, { y: 0, duration: 1, stagger: 0.2 });
-
-    gsap.fromTo(
-      ".links",
-      { opacity: 0 },
-      { opacity: 1, duration: 0.5, stagger: 0.2 }
-    );
-  }, [showMenu]);
+function Header({ setCollapsed, collapsed }) {
+  const { theme, toggleTheme } = useTheme();
 
   return (
-    <>
-      {/* // header */}
-      <header className="flex lg:px-16 items-center justify-between p-8 relative font-jost md:py-20 md:px-16 sm:py-10 z-[90]">
-        <Link to={"/"}>
-          <img src="./logo-dark.webp" alt="Logo" className="w-[200px]" />
-        </Link>
-        {!showMenu && (
-          <FaBars
-            className="text-3xl font-semibold md:hidden cursor-pointer"
-            onClick={() => setShowMenu((is) => !is)}
-          />
-        )}
-
-        {showMenu && (
-          <FaTimes
-            className="text-3xl font-semibold md:hidden cursor-pointer"
-            onClick={() => setShowMenu((is) => !is)}
-          />
-        )}
-        <ul className="hidden md:flex gap-12 tracking-widest text-neutral-800">
-          <Link to={"/About"}>
-            <li className="links">OUR COMPANY</li>
-          </Link>
-          <Link to={"/Location"}>
-            <li className="links">LOCATIONS</li>
-          </Link>
-          <Link to={"/Contact"}>
-            <li className="links">CONTACT</li>
-          </Link>
-        </ul>
-      </header>
-      {/* // PopUp Menu */}
-      <div
-        className={`bg-zinc-900 duration-300 absolute left-0 right-0 z-50 ${
-          showMenu ? " opacity-100 scale-100" : "opacity-0 scale-90"
-        } ${showMenu ? "z-[90]" : "z-0"}`}
-      >
-        <ul
-          className={`text-neutral-300 font-medium tracking-wider p-14 flex flex-col gap-6 text-xl 
-           `}
+    <header className="relative z-10 flex h-[60px] items-center justify-between bg-white px-4 shadow-md transition-colors dark:bg-slate-900 ">
+      <div className="flex items-center gap-x-3">
+        <img src="../logo.svg" alt="" className={`${"md:hidden"}`} />
+        <button
+          className="btn-ghost size-10"
+          onClick={() => setCollapsed(!collapsed)}
         >
-          <Link to={"/About"} onClick={() => setShowMenu((is) => !is)}>
-            <li className="links">OUR COMPANY</li>
-          </Link>
-          <Link to={"/Location"} onClick={() => setShowMenu((is) => !is)}>
-            <li className="links">LOCATIONS</li>
-          </Link>
-          <Link to={"/Contact"} onClick={() => setShowMenu((is) => !is)}>
-            <li className="links">CONTACT</li>
-          </Link>
-        </ul>
+          <ChevronsLeft className={`${collapsed && "rotate-180"}`} />
+        </button>
+        <div className="hidden h-10 flex-shrink-0 items-center gap-x-2 rounded-lg border border-slate-300 px-2 text-base text-slate-900 transition-colors has-[input:focus]:border-blue-500 md:flex md:w-auto lg:w-80 dark:border-slate-700 dark:text-green-900 dark:focus:border-blue-600">
+          <Search size={20} className="text-slate-300" />
+          <input
+            type="text"
+            name="search"
+            id="search"
+            placeholder="Search..."
+            className="w-full bg-transparent text-slate-900 outline-0 placeholder:text-slate-300 dark:text-slate-50"
+          />
+        </div>
       </div>
-    </>
+      <div className="flex items-center gap-x-3">
+        <button size="icon" onClick={toggleTheme}>
+          {theme === "dark" ? (
+            <Sun className=" dark:text-slate-400 flex h-10 w-fit gap-x-2  flex-shrink-0 items-center justify-center  rounded-lg transition-colors dark:hover:bg-blue-950 p-2 dark:hover:text-slate-300;" />
+          ) : (
+            <Moon className="text-slate-400 dark:block  flex h-10 flex-shrink-0 items-center justify-center gap-x-2 rounded-lg p-2 w-fit transition-colors hover:bg-blue-50 hover:text-slate-500" />
+          )}
+        </button>
+
+        <button className="btn-ghost size-10">
+          <Bell size={20} />
+        </button>
+        <button className="size-10 overflow-hidden rounded-full">
+          <img
+            src="../WarDude.png"
+            alt="profile image"
+            className="size-full object-cover"
+          />
+        </button>
+      </div>
+    </header>
   );
 }
 
