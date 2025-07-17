@@ -1,8 +1,8 @@
-import { useUser } from "../context/UserContext";
+import { useAuth } from "../context/AuthContext";
 import Balance from "./Balance";
 
 function Layout() {
-  const { profile } = useUser();
+  const { profile } = useAuth();
 
   return (
     <div className="flex flex-col gap-6 dark:text-slate-200 text-slate-800 mb-5">

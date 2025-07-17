@@ -1,23 +1,20 @@
-// src/pages/RedirectHome.jsx
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
-import { useUserProfile } from "../hooks/useUserProfile";
+import { useAuthContext } from "../context/AuthContext"; // updated
 import Loading from "../components/Loading";
 
 export default function RedirectHome() {
-  const { user, authLoading } = useAuth();
-  const { data: profile, isLoading: profileLoading } = useUserProfile(user?.id);
+  const { user, profile, authLoading, profileLoading } = useAuthContext();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (authLoading || profileLoading) return;
 
-    if (!user) {
+    if (!user || !profile?.fName) {
       navigate("/sign-in", { replace: true });
-    } else if (profile?.fName) {
-      const fName = profile.fName.toLowerCase().trim();
-      navigate(`/${fName}/dashboard`, { replace: true });
+    } else {
+      const currentRoute = `/${profile.fName.toLowerCase().trim()}/dashboard`;
+      navigate(currentRoute, { replace: true });
     }
   }, [authLoading, profileLoading, user, profile, navigate]);
 

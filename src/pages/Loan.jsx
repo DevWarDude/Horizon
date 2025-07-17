@@ -6,11 +6,11 @@ import supabase from "../services/supabase";
 import { useLoanData } from "../hooks/useLoanData";
 import { addTransaction } from "../services/transactionService";
 import { formatAmount, getCurrencySymbol } from "../utils/currency";
-import { useUser } from "../context/UserContext";
 import DepositForm from "../components/loans/DepositForm";
 import LoanForm from "../components/loans/LoanForm";
 import WithdrawForm from "../components/loans/WithdrawForm";
 import RepayForm from "../components/loans/RepayForm";
+import { useAuth } from "../context/AuthContext";
 
 function Loan() {
   const [depositAmount, setDepositAmount] = useState("");
@@ -24,26 +24,30 @@ function Loan() {
   const {
     profile,
     isUserLoading,
-    refetch,
+    refetchProfile,
     userCurrency,
     balance,
     loan,
     rate,
+    convertedBalanceValue,
+    convertedLoanValue,
     loanPurpose: existingLoanPurpose,
   } = useLoanData();
 
+  console.log(refetchProfile);
+
+  console.log(convertedBalanceValue, convertedLoanValue);
+
   const {
     profile: { fName },
-  } = useUser();
+  } = useAuth();
   const navigate = useNavigate();
   const symbol = getCurrencySymbol(userCurrency);
-  const formattedBalance = `${symbol}${formatAmount(balance) * rate}`;
-  const formattedLoan = `${symbol}${formatAmount(loan)}`;
 
   useEffect(() => {
-    document.title = `${fName}'s Loan | Horizon`;
-    refetch();
-  }, [fName, refetch]);
+    document.title = `${fName || "User"}'s Loan | Horizon`;
+    refetchProfile();
+  }, [fName, refetchProfile]);
 
   // --- Handlers ---
   const handleDeposit = (e) => {
@@ -71,12 +75,10 @@ function Loan() {
 
     try {
       setIsLoading(true);
-      const newBalance = Number(balance) + Number(loanAmount);
 
       const { error } = await supabase
         .from("profiles")
         .update({
-          balance: newBalance,
           loan: loanAmount,
           LoanPurpose: loanPurpose,
         })
@@ -94,7 +96,7 @@ function Loan() {
       toast.success("Loan granted successfully!");
       setLoanAmount("");
       setLoanPurpose("");
-      await refetch();
+      await refetchProfile();
     } catch (err) {
       toast.error("Loan request failed.");
     } finally {
@@ -137,11 +139,15 @@ function Loan() {
       );
 
       setRepayAmount("");
-      await refetch();
+      await refetchProfile();
     } catch {
       toast.error("Repayment failed.");
     }
   };
+
+  const formattedBalance = `${symbol}${formatAmount(convertedBalanceValue)}`;
+  const formattedLoan = `${symbol}${formatAmount(convertedLoanValue)}`;
+  console.log(rate);
 
   if (isUserLoading || !profile)
     return (

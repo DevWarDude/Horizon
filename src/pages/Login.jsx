@@ -12,7 +12,7 @@ function Login() {
     formState: { errors },
   } = useForm({ mode: "onTouched" });
 
-  const { mutate: login, isPending } = useLogin();
+  const { mutate: login, isPending, isLoading } = useLogin();
 
   const onSubmit = (data) => login(data);
 
@@ -69,7 +69,7 @@ function Login() {
 
         <button
           type="submit"
-          disabled={isPending}
+          disabled={isPending || isLoading}
           className="bg-blue-500 text-white font-semibold text-lg rounded-lg p-2 tracking-wide md:py-3 md:mt-2 md:text-lg hover:bg-blue-600 transition"
         >
           {isPending ? (

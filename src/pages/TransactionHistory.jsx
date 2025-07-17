@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getTransactions } from "../services/transactionService";
-import { useUser } from "../context/UserContext";
 import { useExchangeRate } from "../hooks/useExchangeRate";
 import { motion } from "framer-motion";
 
 import TransactionFilters from "../components/transactions/TransactionFilters";
 import TransactionItem from "../components/transactions/TransactionItem";
 import Pagination from "../components/transactions/Pagination";
+import { useAuth } from "../context/AuthContext";
 
 const TransactionHistory = () => {
-  const { profile, refetch: refetchUser } = useUser();
+  const { profile, refetchProfile: refetchUser } = useAuth();
 
   useEffect(() => {
     refetchUser();
@@ -26,7 +26,7 @@ const TransactionHistory = () => {
   });
 
   useEffect(() => {
-    document.title = `${profile.fName}'s Transactions | Horizon`;
+    document.title = `${profile.fName || "User"}'s Transactions | Horizon`;
   }, [profile.fName]);
 
   const { data: exchangeRate = 1, isLoading: isRateLoading } =

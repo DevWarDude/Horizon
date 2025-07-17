@@ -13,7 +13,8 @@ const NameInputs = ({ form, handleChange }) => (
           name={field}
           value={form[field]}
           onChange={handleChange}
-          className="mt-1 w-full border rounded px-3 py-2 dark:bg-slate-800 dark:border-slate-700 capitalize bg-white focus:outline-none"
+          className="mt-1 w-full border rounded px-3 py-2 dark:bg-slate-800 dark:border-slate-700 capitalize focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+             transition duration-300"
         />
         <PencilSquareIcon className="w-4 h-4 absolute top-9 right-3 text-gray-400" />
       </div>

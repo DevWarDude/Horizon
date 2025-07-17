@@ -8,12 +8,13 @@ import "react-toastify/dist/ReactToastify.css";
 // Components
 import Loading from "./components/Loading";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ScrollToTop from "./components/ScrollToTop";
 
 // Contexts & Hooks
 import { useTheme } from "./context/ThemeContext";
 import { usePreloadExchangeRate } from "./hooks/usePreloadExchangeRate";
 import { useNetworkStatus } from "./hooks/useNetworkStatus";
-import { useAuth } from "./hooks/useAuth";
+import { useAuth } from "./context/AuthContext";
 
 // Pages (Lazy-loaded)
 const Login = lazy(() => import("./pages/Login"));
@@ -29,7 +30,7 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 
 function App() {
   const { theme } = useTheme();
-  const { authLoading } = useAuth();
+  const { authLoading, user } = useAuth();
   const location = useLocation();
 
   usePreloadExchangeRate();
@@ -40,8 +41,9 @@ function App() {
   return (
     <>
       <Suspense fallback={<Loading />}>
+        <ScrollToTop />
         <AnimatePresence mode="wait">
-          <Routes location={location} key={location.pathname}>
+          <Routes location={location} key={user?.id || "no-user"}>
             <Route path="/" element={<RedirectHome />} />
             <Route path="sign-in" element={<Login />} />
             <Route path="sign-up" element={<SignUp />} />

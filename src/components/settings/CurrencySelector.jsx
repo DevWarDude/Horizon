@@ -11,7 +11,8 @@ const CurrencySelector = ({ form, handleChange }) => (
       name="currency"
       value={form.currency}
       onChange={handleChange}
-      className="mt-1 w-full border rounded px-3 py-2 dark:bg-slate-800 dark:border-slate-700 bg-white focus:outline-none"
+      className="mt-1 w-full border rounded px-3 py-2 dark:bg-slate-800 dark:border-slate-700 bg-white focus:outline-none appearance-none  focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+             transition duration-300 "
     >
       <option value="USD">USD - US Dollar</option>
       <option value="NGN">NGN - Naira</option>

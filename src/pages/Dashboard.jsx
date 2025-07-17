@@ -3,8 +3,7 @@ import Layout from "../components/Layout";
 import { useTheme } from "../context/ThemeContext";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useUser } from "../context/UserContext";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../context/AuthContext";
 import OverviewChart from "../components/OverviewChart";
 import RecentTransactions from "../components/RecentTransactions";
 import { useTransactions } from "../hooks/useTransactions";
@@ -18,7 +17,7 @@ const Dashboard = () => {
     profile,
     isLoading: profileLoading,
     isError: profileError,
-  } = useUser();
+  } = useAuth();
 
   const {
     data: transactions,
@@ -27,7 +26,7 @@ const Dashboard = () => {
   } = useTransactions(authUser?.id);
 
   useEffect(() => {
-    document.title = `${profile?.fName}'s Dashboard | Horizon`;
+    document.title = `${profile?.fName || "User"}'s Dashboard | Horizon`;
   }, [profile?.fName]);
 
   useEffect(() => {
@@ -35,6 +34,8 @@ const Dashboard = () => {
       navigate(`/${profile?.fName.toLowerCase()}/dashboard`, { replace: true });
     }
   }, [authUser, routeFName, profile?.fName, navigate]);
+
+  console.log(profileError);
 
   if (profileLoading) return <div>Loading dashboard...</div>;
   if (profileError) return <div>Failed to load profile</div>;

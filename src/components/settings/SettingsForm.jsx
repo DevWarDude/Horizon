@@ -2,7 +2,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import { useUser } from "../../context/UserContext";
 import { useUserProfile } from "../../hooks/useUserProfile";
 import supabase from "../../services/supabase";
 import { updateProfile } from "../../utils/updateProfile";
@@ -15,6 +14,7 @@ import ProfilePicture from "./ProfilePicture";
 import NameInputs from "./NameInputs";
 import CurrencySelector from "./CurrencySelector";
 import DeleteAccountButton from "./DeleteAccountButton";
+import { useAuth } from "../../context/AuthContext";
 
 const fadeUp = {
   initial: { opacity: 0, y: 30 },
@@ -24,7 +24,7 @@ const fadeUp = {
 
 const SettingsForm = () => {
   const { user: routeUser } = useParams();
-  const { refetch, profile } = useUser();
+  const { refetchProfile, profile } = useAuth();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
@@ -75,7 +75,7 @@ const SettingsForm = () => {
   }, [profileData]);
 
   useEffect(() => {
-    document.title = `${profile.fName}'s Settings | Horizon`;
+    document.title = `${profile.fName || "User"}'s Settings | Horizon`;
   }, [profile.fName]);
 
   useEffect(() => {
@@ -97,8 +97,9 @@ const SettingsForm = () => {
     mutationFn: updateProfile,
     onSuccess: () => {
       toast.success("Profile updated");
+
       queryClient.invalidateQueries({ queryKey: ["user-profile", userId] });
-      refetch();
+      refetchProfile();
       const updatedName = form.fName.toLowerCase().trim();
       if (routeUser !== updatedName) {
         navigate(`/${updatedName}/settings`, { replace: true });
@@ -111,6 +112,7 @@ const SettingsForm = () => {
     e.preventDefault();
     if (!form.userId || !hasChanges) return;
     mutation.mutate(form);
+    setForm((prev) => ({ ...prev, img: "" }));
   };
 
   if (isLoading || !profileData?.userId) {

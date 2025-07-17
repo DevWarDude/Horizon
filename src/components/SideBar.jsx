@@ -10,9 +10,12 @@ import PropTypes from "prop-types";
 import { forwardRef } from "react";
 import ToolTip from "./Tooltip";
 import { AnimatePresence, motion } from "framer-motion";
+import { useTheme } from "../context/ThemeContext";
 
 export const SideBar = forwardRef(({ collapsed, handleSidebar }, ref) => {
   const { logout, isLoading: isLoggingOut } = useLogout();
+  const { theme } = useTheme();
+
   return (
     <AnimatePresence>
       {!collapsed && (
@@ -86,14 +89,18 @@ export const SideBar = forwardRef(({ collapsed, handleSidebar }, ref) => {
               onClick={logout}
               disabled={isLoggingOut}
             >
-              <MdLogout className={"opacity-75 text-2xl"} />
+              {isLoggingOut ? (
+                <ClipLoader
+                  size={20}
+                  color={`${theme == "dark" ? "#fff" : "#000"}`}
+                />
+              ) : (
+                <MdLogout className={"opacity-75 text-2xl"} />
+              )}
               {!collapsed && (
                 <p className="whitespace-nowrap flex items-center gap-3">
                   {isLoggingOut ? (
-                    <>
-                      <ClipLoader size={20} color="#fff" />
-                      <span>Logging out...</span>
-                    </>
+                    <span>Logging out...</span>
                   ) : (
                     <span>Logout</span>
                   )}

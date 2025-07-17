@@ -6,7 +6,7 @@ import Header from "./Header";
 import { Outlet } from "react-router";
 
 const HomeLayout = () => {
-  const isDesktopDevice = useMediaQuery("(min-width: 768px)");
+  const isDesktopDevice = useMediaQuery("(min-width: 968px)");
 
   const [collapsed, setCollapsed] = useState(!isDesktopDevice);
   const sidebarRef = useRef(null);
@@ -46,7 +46,7 @@ const HomeLayout = () => {
 
       <div
         className={`{transition-[margin] duration-300
-          ${collapsed ? "md:ml-[70px]" : "md:ml-[240px]"}`}
+          ${collapsed ? "md:ml-[0px]" : "md:ml-[240px]"}`}
       >
         <Header collapsed={collapsed} setCollapsed={setCollapsed} />
         <div className="h-[calc(100vh-60px)] overflow-y-auto overflow-x-hidden p-6 ">

@@ -19,6 +19,7 @@ export function useLogin() {
       if (error) throw new Error(error.message);
       return data;
     },
+
     onSuccess: async ({ user }) => {
       const { data: profile } = await supabase
         .from("profiles")
@@ -33,12 +34,11 @@ export function useLogin() {
         staleTime: 1000 * 60 * 60 * 24,
       });
       toast.success("Login successful!");
-      console.log(profile);
 
-      navigate(`/${fName}/dashboard`);
+      navigate(`/${fName || "User"}/dashboard`);
     },
+
     onError: (err) => {
-      console.log(err);
       if (err.message === "Failed to fetch") {
         toast.error("Network error. Please check your connection");
       } else {

@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import supabase from "../../services/supabase";
+import { formatDate } from "../../utils/formatDate";
 import { UserIcon } from "@heroicons/react/24/outline";
 
 const ProfilePicture = ({
@@ -59,7 +60,7 @@ const ProfilePicture = ({
   return (
     <div className="flex gap-6 items-center flex-wrap sm:flex-nowrap">
       <div className="flex flex-col items-center gap-3">
-        <div className="w-16 h-16 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
+        <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
           {profilePic || profile.img ? (
             <img
               src={profilePic || profile.img}
@@ -72,7 +73,7 @@ const ProfilePicture = ({
         </div>
         {!profile.img && (
           <label className="cursor-pointer text-sm bg-gray-100 dark:bg-slate-800 px-3 py-1 rounded hover:bg-gray-200 dark:hover:bg-slate-700">
-            Change Picture
+            Upload Picture
             <input
               type="file"
               accept="image/*"
@@ -93,14 +94,16 @@ const ProfilePicture = ({
       </div>
 
       <div className="flex flex-col gap-2 text-sm text-gray-600 dark:text-slate-300">
-        <div>
-          <strong>Country:</strong> {profile?.country || "—"}
+        <div className="flex gap-3 md:gap5 items-center sm:text-base">
+          <strong>Country:</strong> <span>{profile?.country || "—"}</span>
         </div>
-        <div>
-          <strong>City:</strong> {profile?.city || "—"}
+        <div className="flex gap-3 md:gap5 items-center sm:text-base">
+          <strong>City:</strong> <span>{profile?.city || "—"}</span>
         </div>
-        <div>
-          <strong>Date of Birth:</strong> {profile?.dob?.slice(0, 10) || "—"}
+        <div className="flex gap-3 md:gap5 items-center sm:text-base">
+          {console.log(profile)}
+          <strong>Date of Birth:</strong>{" "}
+          <span>{formatDate(profile?.dob?.slice(0, 10)) || "—"}</span>
         </div>
       </div>
     </div>

@@ -1,10 +1,10 @@
 // hooks/usePreloadExchangeRate.js
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useUser } from "../context/UserContext";
+import { useAuth } from "../context/AuthContext";
 
 export const usePreloadExchangeRate = () => {
-  const { profile } = useUser();
+  const { profile } = useAuth();
   const currency = profile?.currency || "USD";
 
   return useQuery({

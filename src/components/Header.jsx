@@ -1,11 +1,11 @@
 import { Bell, ChevronsLeft, Moon, Search, Sun, User2 } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
-import { useUser } from "../context/UserContext";
 import PropTypes from "prop-types";
+import { useAuth } from "../context/AuthContext";
 
 function Header({ setCollapsed, collapsed }) {
   const { theme, toggleTheme } = useTheme();
-  const { profile } = useUser();
+  const { profile } = useAuth();
 
   return (
     <header className="relative z-10 flex h-[60px] items-center justify-between bg-white px-4 shadow-md transition-colors dark:bg-slate-900 ">

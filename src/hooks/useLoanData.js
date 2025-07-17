@@ -1,9 +1,13 @@
 // hooks/useLoanData.js
-import { useUser } from "../context/UserContext";
+import { useAuth } from "../context/AuthContext";
 import { useExchangeRate } from "./useExchangeRate";
 
 export const useLoanData = () => {
-  const { profile, refetch, isLoading: isUserLoading } = useUser();
+  const {
+    profile,
+    refetch: refetchProfile,
+    profileLoading: isUserLoading,
+  } = useAuth();
   const userCurrency = profile?.currency || "USD";
   const balance = Number(profile?.balance || 0);
   const loan = Number(profile?.loan || 0);
@@ -19,8 +23,9 @@ export const useLoanData = () => {
     profile,
     isUserLoading,
     isRateLoading,
-    refetch,
+    refetchProfile,
     userCurrency,
+    refetchProfile,
     balance,
     loan,
     loanPurpose,

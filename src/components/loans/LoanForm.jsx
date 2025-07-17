@@ -36,7 +36,7 @@ const LoanForm = ({
       <button
         onClick={handleRequestLoan}
         disabled={!amount || !purpose || isLoading}
-        className="action-btn bg-green-700"
+        className="action-btn bg-green-700 text-nowrap"
       >
         {isLoading ? "Requesting..." : "Request Loan"}
       </button>
