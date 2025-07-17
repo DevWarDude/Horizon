@@ -25,7 +25,6 @@ export const useLoanData = () => {
     isRateLoading,
     refetchProfile,
     userCurrency,
-    refetchProfile,
     balance,
     loan,
     loanPurpose,
