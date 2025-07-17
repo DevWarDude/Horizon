@@ -12,7 +12,7 @@ import LocationFields from "./LocationFields";
 import { useGeolocation } from "../hooks/useGeolocation";
 import { useSignUp } from "../hooks/useSignUP";
 import { addTransaction } from "../services/transactionService";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../context/AuthContext";
 import { useUserProfile } from "../hooks/useUserProfile";
 import MapSelector from "./MapSelectore";
 
