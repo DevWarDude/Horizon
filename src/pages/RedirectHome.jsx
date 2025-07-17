@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuthContext } from "../context/AuthContext"; // updated
+import { useAuth } from "../context/AuthContext";
 import Loading from "../components/Loading";
 
 export default function RedirectHome() {
