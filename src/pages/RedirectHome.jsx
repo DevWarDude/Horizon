@@ -4,7 +4,7 @@ import { useAuth } from "../context/AuthContext";
 import Loading from "../components/Loading";
 
 export default function RedirectHome() {
-  const { user, profile, authLoading, profileLoading } = useAuthContext();
+  const { user, profile, authLoading, profileLoading } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
