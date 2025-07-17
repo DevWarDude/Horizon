@@ -1,75 +1,113 @@
-import {
-  CreditCard,
-  DollarSign,
-  Package,
-  PencilLine,
-  Plus,
-  Star,
-  Trash,
-  TrendingUp,
-  Users,
-} from "lucide-react";
-import { recentSalesData } from "../data/recentSalesData";
-import { topProducts } from "../data/topProducts";
-import Balance from "../components/Balance";
+import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getTransactions } from "../services/transactionService";
+import { useUser } from "../context/UserContext";
+import { useExchangeRate } from "../hooks/useExchangeRate";
+import { motion } from "framer-motion";
 
-function TransactionHistory() {
-  return (
-    <div className="font-jost text-slate-600">
-      <Balance />
+import TransactionFilters from "../components/transactions/TransactionFilters";
+import TransactionItem from "../components/transactions/TransactionItem";
+import Pagination from "../components/transactions/Pagination";
 
-      <div className="card">
-        <div className="card-header">
-          <p className="card-title text-xl">Transaction History</p>
-        </div>
-        <div className="card-body p-0">
-          <div className="relative h-fit w-full flex-shrink-0 overflow-auto rounded-none [scrollbar-width:_thin] ">
-            <table className="table">
-              <thead className="table-header">
-                <tr className="table-row text-blue-400 tracking-wide ">
-                  <th className="table-head font-medium">Name</th>
-                  <th className="table-head font-medium">Date</th>
-                  <th className="table-head font-medium">Amount</th>
-                  <th className="table-head font-medium">Status</th>
-                </tr>
-              </thead>
-              <tbody className="table-body">
-                {topProducts.map((product) => (
-                  <tr key={product.id} className="table-row">
-                    <td className="table-cell font-semibold text-gray-400 text-xl ">
-                      {product.name}
-                    </td>
-                    <td className="table-cell">
-                      <div className="flex w-max gap-x-4">
-                        <div className="flex flex-col">
-                          <p>{product.date}</p>
-                          <p className="text-sm text-gray-500">
-                            {product.time || "04:44 AM"}
-                          </p>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="table-cell font-light tracking-wide">
-                      ${product.amount}
-                    </td>
-                    <td
-                      className={`table-cell ${
-                        product.status === "Deposited"
-                          ? "text-green-600"
-                          : "text-red-600"
-                      }`}
-                    >
-                      {product.status}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
+const TransactionHistory = () => {
+  const { profile, refetch: refetchUser } = useUser();
+
+  useEffect(() => {
+    refetchUser();
+  }, [refetchUser]);
+
+  const userId = profile?.id;
+  const userCurrency = profile?.currency || "USD";
+
+  const { data: allTransactions = [], isLoading } = useQuery({
+    queryKey: ["transactions", userId],
+    queryFn: () => getTransactions(userId),
+    enabled: !!userId,
+  });
+
+  useEffect(() => {
+    document.title = `${profile.fName}'s Transactions | Horizon`;
+  }, [profile.fName]);
+
+  const { data: exchangeRate = 1, isLoading: isRateLoading } =
+    useExchangeRate(userCurrency);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [filterType, setFilterType] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
+  const transactionsPerPage = 4;
+
+  const filteredTransactions = allTransactions.filter((tx) => {
+    const matchesType = filterType === "all" || tx.type === filterType;
+    const matchesSearch = tx.description
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
+    return matchesType && matchesSearch;
+  });
+
+  const indexOfLastTx = currentPage * transactionsPerPage;
+  const indexOfFirstTx = indexOfLastTx - transactionsPerPage;
+  const currentTransactions = filteredTransactions.slice(
+    indexOfFirstTx,
+    indexOfLastTx
   );
-}
+  const totalPages = Math.ceil(
+    filteredTransactions.length / transactionsPerPage
+  );
+
+  return (
+    <motion.div
+      initial={{ x: 100, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      exit={{ x: -100, opacity: 0 }}
+      transition={{ duration: 0.4 }}
+      className="w-full max-w-xl p-6 mx-auto bg-white dark:bg-slate-900 rounded-lg shadow-lg"
+    >
+      <h2 className="text-2xl font-bold mb-6 text-center text-stone-800 dark:text-stone-50">
+        Transaction History
+      </h2>
+
+      <TransactionFilters
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        filterType={filterType}
+        setFilterType={setFilterType}
+        setCurrentPage={setCurrentPage}
+      />
+
+      {/* Transaction List */}
+      <div className="space-y-5">
+        {isLoading ? (
+          <p className="text-center text-gray-500 dark:text-stone-400">
+            Loading transactions...
+          </p>
+        ) : currentTransactions.length > 0 ? (
+          currentTransactions.map((tx) => (
+            <TransactionItem
+              key={tx.id}
+              tx={tx}
+              exchangeRate={exchangeRate}
+              isRateLoading={isRateLoading}
+              userCurrency={userCurrency}
+            />
+          ))
+        ) : (
+          <p className="text-center text-gray-500 dark:text-stone-400">
+            No transactions found.
+          </p>
+        )}
+      </div>
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
+      )}
+    </motion.div>
+  );
+};
 
 export default TransactionHistory;

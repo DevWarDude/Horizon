@@ -1,43 +1,91 @@
-import { Route, Routes, BrowserRouter as Router, Navigate } from "react-router";
 import { lazy, Suspense } from "react";
-import { ThemeProvider } from "./context/ThemeContext";
+import { Route, Routes, Navigate, useLocation } from "react-router";
+import { ToastContainer } from "react-toastify";
+import { AnimatePresence } from "framer-motion";
 
+import "react-toastify/dist/ReactToastify.css";
+
+// Components
+import Loading from "./components/Loading";
+import ProtectedRoute from "./components/ProtectedRoute";
+
+// Contexts & Hooks
+import { useTheme } from "./context/ThemeContext";
+import { usePreloadExchangeRate } from "./hooks/usePreloadExchangeRate";
+import { useNetworkStatus } from "./hooks/useNetworkStatus";
+import { useAuth } from "./hooks/useAuth";
+
+// Pages (Lazy-loaded)
 const Login = lazy(() => import("./pages/Login"));
 const SignUp = lazy(() => import("./pages/SignUp"));
-const HomeLayout = lazy(() => import("./pages/HomeLayout"));
+const RedirectHome = lazy(() => import("./pages/RedirectHome"));
+const HomeLayout = lazy(() => import("./components/HomeLayout"));
+const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Loan = lazy(() => import("./pages/Loan"));
 const TransactionHistory = lazy(() => import("./pages/TransactionHistory"));
-const TransferFunds = lazy(() => import("./pages/TransferFunds"));
 const Settings = lazy(() => import("./pages/Settings"));
 const ConnectBank = lazy(() => import("./pages/ConnectBank"));
-const Dashboard = lazy(() => import("./pages/Dashboard"));
-import Loading from "./components/Loading";
-
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 function App() {
+  const { theme } = useTheme();
+  const { authLoading } = useAuth();
+  const location = useLocation();
+
+  usePreloadExchangeRate();
+  useNetworkStatus();
+
+  if (authLoading) return <Loading />;
+
   return (
-    <ThemeProvider>
-      <Router>
-        <Suspense fallback={<Loading />}>
-          <Routes>
+    <>
+      <Suspense fallback={<Loading />}>
+        <AnimatePresence mode="wait">
+          <Routes location={location} key={location.pathname}>
+            <Route path="/" element={<RedirectHome />} />
             <Route path="sign-in" element={<Login />} />
-            <Route path="/:user" element={<HomeLayout />}>
+            <Route path="sign-up" element={<SignUp />} />
+
+            <Route
+              path="/:user"
+              element={
+                <ProtectedRoute>
+                  <HomeLayout />
+                </ProtectedRoute>
+              }
+            >
               <Route index element={<Navigate replace to="dashboard" />} />
               <Route path="dashboard" element={<Dashboard />} />
               <Route
                 path="transaction-history"
                 element={<TransactionHistory />}
               />
-              <Route path="transfer-funds" element={<TransferFunds />} />
               <Route path="connect-bank" element={<ConnectBank />} />
               <Route path="settings" element={<Settings />} />
-              <Route path="Loan" element={<Loan />} />
+              <Route path="loan" element={<Loan />} />
+              <Route path="not-found" element={<NotFound />} />
             </Route>
-            <Route path="sign-up" element={<SignUp />} />
+
+            <Route path="*" element={<NotFound />} />
           </Routes>
-        </Suspense>
-      </Router>
-    </ThemeProvider>
+        </AnimatePresence>
+      </Suspense>
+
+      <ToastContainer
+        position="top-left"
+        autoClose={3000}
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnFocusLoss={false}
+        gutter={20}
+        theme={theme}
+        toastClassName={() =>
+          theme === "dark"
+            ? "bg-slate-800 text-slate-100 rounded-xl px-5 py-4 shadow-lg border border-slate-700 flex items-center"
+            : "bg-white text-slate-800 rounded-xl px-5 py-4 shadow-md border border-gray-200 flex items-center"
+        }
+      />
+    </>
   );
 }
 

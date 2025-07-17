@@ -1,8 +1,11 @@
-import { Bell, ChevronsLeft, Moon, Search, Sun } from "lucide-react";
+import { Bell, ChevronsLeft, Moon, Search, Sun, User2 } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
+import { useUser } from "../context/UserContext";
+import PropTypes from "prop-types";
 
 function Header({ setCollapsed, collapsed }) {
   const { theme, toggleTheme } = useTheme();
+  const { profile } = useUser();
 
   return (
     <header className="relative z-10 flex h-[60px] items-center justify-between bg-white px-4 shadow-md transition-colors dark:bg-slate-900 ">
@@ -37,16 +40,29 @@ function Header({ setCollapsed, collapsed }) {
         <button className="btn-ghost size-10">
           <Bell size={20} />
         </button>
-        <button className="size-10 overflow-hidden rounded-full">
-          <img
-            src="../WarDude.png"
-            alt="profile image"
-            className="size-full object-cover"
-          />
+        <button className="size-10 overflow-hidden flex items-center  justify-center rounded-full">
+          <div className="flex items-center  justify-center gap-4">
+            <div className="w-10 h-10 rounded-full  dark:bg-slate-700 flex items-center justify-center overflow-hidden">
+              {profile?.img ? (
+                <img
+                  src={profile?.img}
+                  alt="Profile"
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <User2 className="w-7 h-7 text-slate-400 dark:text-slate-300" />
+              )}
+            </div>
+          </div>
         </button>
       </div>
     </header>
   );
 }
+
+Header.propTypes = {
+  collapsed: PropTypes.bool,
+  setCollapsed: PropTypes.func,
+};
 
 export default Header;

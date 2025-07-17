@@ -1,7 +1,5 @@
 import { CiHome, CiMoneyBill } from "react-icons/ci";
-import { AiOutlineProduct } from "react-icons/ai";
 import { CiBank } from "react-icons/ci";
-import { GrTransaction } from "react-icons/gr";
 import { GoHistory } from "react-icons/go";
 import { IoSettingsOutline } from "react-icons/io5";
 
@@ -18,11 +16,6 @@ export const navBarLinks = [
     path: "connect-bank",
   },
 
-  {
-    label: "Transfer Funds",
-    icon: GrTransaction,
-    path: "transfer-funds",
-  },
   {
     label: "Transaction History",
     icon: GoHistory,

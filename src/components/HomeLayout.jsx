@@ -1,15 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import { useClickOutside } from "../hooks/use-click-outside";
-import { SideBar } from "../components/SideBar";
-import Header from "../components/Header";
+import { SideBar } from "./SideBar";
+import Header from "./Header";
 import { Outlet } from "react-router";
 
 const HomeLayout = () => {
   const isDesktopDevice = useMediaQuery("(min-width: 768px)");
 
   const [collapsed, setCollapsed] = useState(!isDesktopDevice);
-
   const sidebarRef = useRef(null);
 
   useEffect(() => {
@@ -40,7 +39,7 @@ const HomeLayout = () => {
 
       <SideBar
         collapsed={collapsed}
-        // handleSidebar={handleSidebar}
+        handleSidebar={handleSidebar}
         setCollapsed={setCollapsed}
         ref={sidebarRef}
       />

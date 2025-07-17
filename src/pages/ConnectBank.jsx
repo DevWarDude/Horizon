@@ -1,12 +1,26 @@
-import Layout from "../components/Layout";
+import { useEffect } from "react";
+import { motion } from "framer-motion";
 
 function ConnectBank() {
+  useEffect(() => {
+    document.title = "Connect Bank | Horizon";
+  }, []);
+
   return (
-    <div className="flex justify-center items-center h-[80vh]">
-      <button className="   gap-x-3 rounded-lg text-lg py-4 px-6 font-medium transition-colors dark:text-slate-50 dark:bg-blue-950 bg-blue-600 text-slate-100 text-center">
+    <motion.div
+      className="flex justify-center items-center h-[80vh]"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
+    >
+      <button
+        type="button"
+        className="px-6 py-4 text-lg font-medium rounded-lg bg-blue-600 text-white dark:bg-blue-950 dark:text-slate-50 transition-colors"
+      >
         Connect Bank
       </button>
-    </div>
+    </motion.div>
   );
 }
 

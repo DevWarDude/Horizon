@@ -1,12 +1,7 @@
-import Layout from "../components/Layout";
+import SettingsForm from "../components/settings/SettingsForm";
 
-function Products() {
-  return (
-    <div>
-      Products
-      <Layout />
-    </div>
-  );
-}
+const Settings = () => {
+  return <SettingsForm />;
+};
 
-export default Products;
+export default Settings;

@@ -1,4 +1,4 @@
-import { FadeLoader, GridLoader } from "react-spinners";
+import { FadeLoader } from "react-spinners";
 
 const Loading = () => {
   return (

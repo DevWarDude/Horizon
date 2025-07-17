@@ -13,9 +13,6 @@ function SignUpProvider({ children }) {
   const [country, setCountry] = useState("");
   const [geocodingError, setGeocodingError] = useState("");
 
-  const [cityName, setCityName] = useState("");
-  const [country, setCountry] = useState("");
-
   const {
     isLoading: isLoadingPosition,
     position: geolocationPosition,
@@ -32,14 +29,14 @@ function SignUpProvider({ children }) {
           setGeocodingError("");
 
           const res = await fetch(
-            `${BASE_URL}?latitude=${mapLat}&longitude=${mapLng}`
+            `${BASE_URL}?latitude=${mapLat}&longitude=${mapLng}`,
           );
           const data = await res.json();
           console.log(data);
 
           if (!data.countryCode)
             throw new Error(
-              "That doesn't seem to be a city. Click somewhere else 😉"
+              "That doesn't seem to be a city. Click somewhere else 😉",
             );
 
           setCityName(data.city || data.locality || "");
@@ -52,7 +49,7 @@ function SignUpProvider({ children }) {
       }
       fetchCityData();
     },
-    [mapLat, mapLng]
+    [mapLat, mapLng],
   );
 
   <SignUpContext.Provider

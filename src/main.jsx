@@ -2,10 +2,10 @@
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
-// import Map from "./components/Map.jsx";
+import { AppProviders } from "./AppProviders";
 
 createRoot(document.getElementById("root")).render(
-  // <StrictMode>
-  <App />
-  // </StrictMode>
+  <AppProviders>
+    <App />
+  </AppProviders>
 );
