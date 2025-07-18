@@ -1,12 +1,6 @@
 import supabase from "../services/supabase";
 
-export const updateProfile = async ({
-  userId,
-  fName,
-  lName,
-  currency,
-  img,
-}) => {
+export const updateProfile = async ({ id, fName, lName, currency, img }) => {
   const { error } = await supabase
     .from("profiles")
     .update({
@@ -15,7 +9,7 @@ export const updateProfile = async ({
       currency,
       img,
     })
-    .eq("id", userId);
+    .eq("id", id);
 
   if (error) throw new Error("Failed to update profile");
 };

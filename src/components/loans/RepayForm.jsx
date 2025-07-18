@@ -8,6 +8,7 @@ const RepayForm = ({
   handleRepayLoan,
   formattedLoan,
   balance,
+  isRepaying,
 }) => (
   <motion.form
     initial={{ opacity: 0, y: 12 }}
@@ -28,21 +29,23 @@ const RepayForm = ({
       />
       <button
         onClick={handleRepayLoan}
-        disabled={!repayAmount || repayAmount > balance}
+        disabled={!repayAmount || repayAmount > balance || isRepaying}
         className="action-btn bg-indigo-700"
       >
-        Repay
+        {isRepaying ? "Processing..." : "Repay"}
       </button>
     </div>
   </motion.form>
 );
 
 RepayForm.propTypes = {
-  repayAmount: PropTypes.string.isRequired,
+  repayAmount: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    .isRequired,
   setRepayAmount: PropTypes.func.isRequired,
   handleRepayLoan: PropTypes.func.isRequired,
   formattedLoan: PropTypes.string.isRequired,
   balance: PropTypes.number.isRequired,
+  isRepaying: PropTypes.bool.isRequired,
 };
 
 export default RepayForm;

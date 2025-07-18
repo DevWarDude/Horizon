@@ -20,6 +20,7 @@ function Loan() {
   const [repayAmount, setRepayAmount] = useState("");
   const [currency, setCurrency] = useState("USD");
   const [isLoading, setIsLoading] = useState(false);
+  const [isRepaying, setIsRepaying] = useState(false);
 
   const {
     profile,
@@ -29,14 +30,13 @@ function Loan() {
     balance,
     loan,
     rate,
+    testRate,
     convertedBalanceValue,
     convertedLoanValue,
     loanPurpose: existingLoanPurpose,
   } = useLoanData();
 
-  console.log(refetchProfile);
-
-  console.log(convertedBalanceValue, convertedLoanValue);
+  // loanAmount * rate to store in database
 
   const {
     profile: { fName },
@@ -75,27 +75,31 @@ function Loan() {
 
     try {
       setIsLoading(true);
+      console.log(userCurrency, loanAmount);
+      console.log(testRate);
 
-      const { error } = await supabase
-        .from("profiles")
-        .update({
-          loan: loanAmount,
-          LoanPurpose: loanPurpose,
-        })
-        .eq("id", profile.id);
+      console.log(loanAmount * testRate);
 
-      if (error) throw error;
+      // const { error } = await supabase
+      //   .from("profiles")
+      //   .update({
+      //     loan: loanAmount,
+      //     LoanPurpose: loanPurpose,
+      //   })
+      //   .eq("id", profile.id);
 
-      await addTransaction({
-        user_id: profile.id,
-        type: "deposit",
-        amount: loanAmount,
-        description: `Loan granted for: ${loanPurpose}`,
-      });
+      // if (error) throw error;
 
-      toast.success("Loan granted successfully!");
-      setLoanAmount("");
-      setLoanPurpose("");
+      // await addTransaction({
+      //   user_id: profile.id,
+      //   type: "deposit",
+      //   amount: loanAmount,
+      //   description: `Loan granted for: ${loanPurpose}`,
+      // });
+
+      // toast.success("Loan granted successfully!");
+      // setLoanAmount("");
+      // setLoanPurpose("");
       await refetchProfile();
     } catch (err) {
       toast.error("Loan request failed.");
@@ -106,8 +110,11 @@ function Loan() {
 
   const handleRepayLoan = async (e) => {
     e.preventDefault();
+
     if (!repayAmount || repayAmount <= 0) return;
     if (repayAmount > balance) return toast.error("Insufficient balance");
+
+    setIsRepaying(true); // 👈 Disable button
 
     const remainingLoan = loan - repayAmount;
     const updatedLoan = remainingLoan > 0 ? remainingLoan : null;
@@ -142,12 +149,13 @@ function Loan() {
       await refetchProfile();
     } catch {
       toast.error("Repayment failed.");
+    } finally {
+      setIsRepaying(false); // 👈 Re-enable button
     }
   };
 
   const formattedBalance = `${symbol}${formatAmount(convertedBalanceValue)}`;
   const formattedLoan = `${symbol}${formatAmount(convertedLoanValue)}`;
-  console.log(rate);
 
   if (isUserLoading || !profile)
     return (
@@ -210,6 +218,7 @@ function Loan() {
             handleRepayLoan={handleRepayLoan}
             formattedLoan={formattedLoan}
             balance={balance}
+            isRepaying={isRepaying}
           />
         )}
       </div>

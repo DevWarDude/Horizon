@@ -2,7 +2,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import { useUserProfile } from "../../hooks/useUserProfile";
 import supabase from "../../services/supabase";
 import { updateProfile } from "../../utils/updateProfile";
 import { ClipLoader } from "react-spinners";
@@ -24,7 +23,15 @@ const fadeUp = {
 
 const SettingsForm = () => {
   const { user: routeUser } = useParams();
-  const { refetchProfile, profile } = useAuth();
+  const {
+    // session,
+    // user,
+    // authLoading,
+    profile,
+    profileLoading,
+    // profileError,
+    refetchProfile,
+  } = useAuth();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
@@ -32,17 +39,15 @@ const SettingsForm = () => {
     fName: "",
     lName: "",
     currency: "USD",
-    userId: "",
+    id: "",
     img: "",
   });
 
   const [profilePic, setProfilePic] = useState(null);
   const [email, setEmail] = useState("");
-  const [userId, setUserId] = useState("");
+  const [id, setId] = useState("");
   const [initialForm, setInitialForm] = useState(null);
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
-
-  const { data: profileData, isLoading } = useUserProfile(userId);
 
   useEffect(() => {
     const getUser = async () => {
@@ -53,7 +58,7 @@ const SettingsForm = () => {
       if (error) toast.error(error.message);
       else if (!user) navigate("/sign-in");
       else {
-        setUserId(user.id);
+        setId(user.id);
         setEmail(user.email);
       }
     };
@@ -61,18 +66,18 @@ const SettingsForm = () => {
   }, [navigate]);
 
   useEffect(() => {
-    if (profileData) {
+    if (profile) {
       const filledForm = {
-        fName: profileData.fName,
-        lName: profileData.lName,
-        currency: profileData.currency,
-        userId: profileData.userId,
-        img: profileData.img || "",
+        fName: profile.fName,
+        lName: profile.lName,
+        currency: profile.currency,
+        id: profile.id,
+        img: profile.img || "",
       };
       setForm(filledForm);
       setInitialForm(filledForm);
     }
-  }, [profileData]);
+  }, [profile]);
 
   useEffect(() => {
     document.title = `${profile.fName || "User"}'s Settings | Horizon`;
@@ -98,7 +103,8 @@ const SettingsForm = () => {
     onSuccess: () => {
       toast.success("Profile updated");
 
-      queryClient.invalidateQueries({ queryKey: ["user-profile", userId] });
+      queryClient.invalidateQueries({ queryKey: ["user-profile", id] });
+
       refetchProfile();
       const updatedName = form.fName.toLowerCase().trim();
       if (routeUser !== updatedName) {
@@ -110,12 +116,13 @@ const SettingsForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!form.userId || !hasChanges) return;
+
+    if (!form.id || !hasChanges) return;
     mutation.mutate(form);
     setForm((prev) => ({ ...prev, img: "" }));
   };
 
-  if (isLoading || !profileData?.userId) {
+  if (profileLoading || !profile.id) {
     return (
       <div className="flex items-center justify-center h-[80vh] text-lg dark:text-white animate-pulse gap-2">
         <span>Loading profile...</span>
@@ -144,7 +151,7 @@ const SettingsForm = () => {
           profile={profile}
           form={form}
           setForm={setForm}
-          userId={userId}
+          id={id}
         />
 
         <div>

@@ -1,4 +1,3 @@
-// src/context/ThemeProvider.jsx
 import { createContext, useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 

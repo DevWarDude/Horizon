@@ -1,6 +1,6 @@
 import { Navigate, useParams } from "react-router-dom";
 import PropTypes from "prop-types";
-import { useAuth } from "../context/AuthContext"; // 🔁 NEW
+import { useAuth } from "../context/AuthContext";
 
 function ProtectedRoute({ children }) {
   const { user, profile, authLoading, profileLoading, isError } = useAuth();
@@ -14,14 +14,12 @@ function ProtectedRoute({ children }) {
     );
   }
 
-  // No valid session
   if (!user || isError || !profile) {
     return <Navigate to="/sign-in" replace />;
   }
 
   const expectedFName = profile.fName?.toLowerCase().trim();
 
-  // ⛔ prevent mismatch routing loop
   if (routeFName !== expectedFName) {
     return <Navigate to={`/${expectedFName}/dashboard`} replace />;
   }

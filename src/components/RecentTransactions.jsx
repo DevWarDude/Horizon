@@ -10,72 +10,82 @@ const RecentTransactions = ({ transactions, isLoading, error, currency }) => {
     currency || "USD"
   );
 
-  if (isLoading) {
-    return <p className="text-gray-500 dark:text-gray-400">Loading...</p>;
-  }
-
-  if (error) {
-    return <p className="text-red-500">Error: {error.message}</p>;
-  }
-
-  if (!transactions?.length) {
-    return (
-      <p className="text-gray-500 dark:text-gray-400">No transactions yet.</p>
-    );
-  }
-
   return (
-    <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-lg shadow-md w-full md:flex-1 min-w-0">
-      <h3 className="text-xl font-medium mb-4 text-slate-700 dark:text-gray-200">
-        Your Recent Transactions
-      </h3>
-      <ul className="divide-y divide-gray-300 dark:divide-slate-600">
-        {transactions.slice(0, 3).map((tx) => {
-          const convertedAmount = tx.amount * exchangeRate;
-          return (
-            <li
-              key={tx.id}
-              className="py-3 flex justify-between items-center text-sm md:text-base"
-            >
-              <div>
-                <p className="font-medium text-slate-800 dark:text-white capitalize">
-                  {tx.type}
-                </p>
-                <p className="text-gray-500 dark:text-gray-400 text-xs">
-                  {new Date(tx.created_at).toLocaleString()}
-                </p>
-              </div>
-              <div
-                className={`font-semibold ${
-                  tx.type === "deposit" ? "text-green-600" : "text-red-500"
-                }`}
-              >
-                {isRateLoading ? (
-                  <span className="ml-1 text-sm text-gray-400">
-                    <ClipLoader size={10} color="#3B82F6" />
-                  </span>
-                ) : (
-                  <>
-                    {tx.type === "deposit" ? "+" : "-"}
-                    {formatCurrency(convertedAmount, currency)}
-                  </>
-                )}
-              </div>
-            </li>
-          );
-        })}
+    <div className="bg-slate-100 dark:bg-slate-900 p-4 rounded-lg shadow-md w-full md:flex-1 min-w-0 border dark:border-slate-700 ">
+      {isLoading && (
+        <div className="flex justify-center items-center ">
+          <p className="text-gray-500 dark:text-gray-400">Loading...</p>
+        </div>
+      )}
 
-        {transactions.length > 3 && (
-          <li className="pt-3 text-right">
-            <Link
-              to={`/${routeFName}/transaction-history`}
-              className="text-blue-600 hover:underline text-sm md:text-base"
-            >
-              See more →
-            </Link>
-          </li>
-        )}
-      </ul>
+      {error && (
+        <div className="flex justify-center items-center ">
+          <p className="text-red-500">Error: {error.message}</p>
+        </div>
+      )}
+
+      {!transactions?.length && (
+        <div className="flex justify-center items-center ">
+          <p className="text-gray-500 dark:text-gray-400">
+            No transactions yet.
+          </p>
+        </div>
+      )}
+
+      {!isLoading && !error && (
+        <>
+          <h3 className="text-xl font-medium mb-4 text-slate-700 dark:text-gray-200">
+            Your Recent Transactions
+          </h3>
+          <ul className="divide-y divide-gray-300 dark:divide-slate-600">
+            {transactions.slice(0, 3).map((tx) => {
+              const convertedAmount = tx.amount * exchangeRate;
+              return (
+                <li
+                  key={tx.id}
+                  className="py-3 flex justify-between items-center text-sm md:text-base"
+                >
+                  <div>
+                    <p className="font-medium text-slate-800 dark:text-white capitalize">
+                      {tx.type}
+                    </p>
+                    <p className="text-gray-500 dark:text-gray-400 text-xs">
+                      {new Date(tx.created_at).toLocaleString()}
+                    </p>
+                  </div>
+                  <div
+                    className={`font-semibold ${
+                      tx.type === "deposit" ? "text-green-600" : "text-red-500"
+                    }`}
+                  >
+                    {isRateLoading ? (
+                      <span className="ml-1 text-sm text-gray-400">
+                        <ClipLoader size={10} color="#3B82F6" />
+                      </span>
+                    ) : (
+                      <>
+                        {tx.type === "deposit" ? "+" : "-"}
+                        {formatCurrency(convertedAmount, currency)}
+                      </>
+                    )}
+                  </div>
+                </li>
+              );
+            })}
+
+            {transactions.length > 3 && (
+              <li className="pt-3 text-right">
+                <Link
+                  to={`/${routeFName}/transaction-history`}
+                  className="text-blue-600 hover:underline text-sm md:text-base"
+                >
+                  See more →
+                </Link>
+              </li>
+            )}
+          </ul>
+        </>
+      )}
     </div>
   );
 };

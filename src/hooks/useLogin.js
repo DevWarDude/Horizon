@@ -1,4 +1,3 @@
-// hooks/useLogin.js
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import supabase from "../services/supabase";
 import { useNavigate } from "react-router-dom";

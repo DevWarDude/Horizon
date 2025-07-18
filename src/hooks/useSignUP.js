@@ -1,4 +1,3 @@
-// src/hooks/useSignUp.js
 import { useMutation } from "@tanstack/react-query";
 import supabase from "../services/supabase";
 

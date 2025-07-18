@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import styles from "./Button.module.css";
 
 function Button({ children, onClick, type }) {
@@ -10,5 +11,16 @@ function Button({ children, onClick, type }) {
     </button>
   );
 }
+
+Button.propTypes = {
+  children: PropTypes.node.isRequired,
+  onClick: PropTypes.func,
+  type: PropTypes.oneOf(["primary", "secondary", "danger"]),
+};
+
+Button.defaultProps = {
+  type: "primary",
+  onClick: () => {},
+};
 
 export default Button;

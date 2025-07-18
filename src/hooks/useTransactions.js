@@ -1,4 +1,3 @@
-// hooks/useTransactions.js
 import { useQuery } from "@tanstack/react-query";
 import supabase from "../services/supabase";
 
@@ -15,6 +14,6 @@ export function useTransactions(userId) {
       if (error) throw new Error(error.message);
       return data;
     },
-    enabled: !!userId, // only run when userId is available
+    enabled: !!userId,
   });
 }

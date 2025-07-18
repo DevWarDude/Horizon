@@ -7,7 +7,6 @@ import { PulseLoader } from "react-spinners";
 import FormInput from "./FormInput";
 import DateInput from "./DateInput";
 import LocationFields from "./LocationFields";
-// import MapSelector from "./MapSelector";
 
 import { useGeolocation } from "../hooks/useGeolocation";
 import { useSignUp } from "../hooks/useSignUP";

@@ -1,4 +1,3 @@
-// context/AuthContext.js
 import { createContext, useContext, useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import PropTypes from "prop-types";
@@ -39,7 +38,6 @@ export function AuthProvider({ children }) {
         setSession(session);
         setUser(session?.user || null);
         if (!session?.user) {
-          // Clear all query cache when user logs out
           queryClient.clear();
         }
       }

@@ -17,10 +17,8 @@ function Balance() {
   const convertedBalance = formatAmount(balance * (rate || 1));
   const symbol = getCurrencySymbol(currency);
 
-  console.log(profile);
-
   return (
-    <div className="border px-2 py-4 rounded-lg flex justify-between items-end bg-white shadow-sm dark:bg-slate-900 ">
+    <div className="border dark:border-slate-700 px-2 py-4 rounded-lg flex justify-between items-end bg-white shadow-sm dark:bg-slate-900 ">
       <div className="flex gap-2 items-center">
         <div className="bg-blue-200 h-[70px] w-[70px] rounded-full flex items-center justify-center dark:bg-slate-100">
           <div className="bg-white dark:bg-slate-900 h-12 w-12 rounded-full"></div>

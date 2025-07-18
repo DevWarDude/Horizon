@@ -1,4 +1,3 @@
-// api/auth.js
 import { supabase } from "../services/supabase";
 
 export async function signUpUser({ email, password, ...profile }) {
@@ -9,7 +8,6 @@ export async function signUpUser({ email, password, ...profile }) {
 
   if (error) throw new Error(error.message);
 
-  // Save extra fields in 'profiles'
   const { user } = data;
 
   const { error: profileError } = await supabase

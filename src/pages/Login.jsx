@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { useLogin } from "../hooks/useLogin";
 import { BeatLoader } from "react-spinners";
 import FormInput from "../components/FormInput";
-// import FormInput from "../components/FormInput";
 
 function Login() {
   const {
@@ -12,7 +11,7 @@ function Login() {
     formState: { errors },
   } = useForm({ mode: "onTouched" });
 
-  const { mutate: login, isPending, isLoading } = useLogin();
+  const { mutate: login, isPending, isLoading, data: user } = useLogin();
 
   const onSubmit = (data) => login(data);
 
@@ -67,10 +66,12 @@ function Login() {
           placeholder="Enter your password"
         />
 
+        {console.log(user)}
+
         <button
           type="submit"
-          disabled={isPending || isLoading}
-          className="bg-blue-500 text-white font-semibold text-lg rounded-lg p-2 tracking-wide md:py-3 md:mt-2 md:text-lg hover:bg-blue-600 transition"
+          disabled={isPending || isLoading || user}
+          className="bg-blue-500 text-white font-semibold text-lg rounded-lg p-2 tracking-wide md:py-3 md:mt-2 md:text-lg hover:bg-blue-600 transition disabled:opacity-40 disabled:hover:opacity-40"
         >
           {isPending ? (
             <div className="flex gap-2 items-center justify-center">

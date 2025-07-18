@@ -1,4 +1,3 @@
-// utils/handleSupabaseError.js
 export function handleSupabaseError(
   error,
   fallbackMessage = "Something went wrong"

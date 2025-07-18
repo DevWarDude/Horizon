@@ -2,6 +2,7 @@ import { Bell, ChevronsLeft, Moon, Search, Sun, User2 } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
 import PropTypes from "prop-types";
 import { useAuth } from "../context/AuthContext";
+import { Link } from "react-router";
 
 function Header({ setCollapsed, collapsed }) {
   const { theme, toggleTheme } = useTheme();
@@ -42,7 +43,11 @@ function Header({ setCollapsed, collapsed }) {
         </button>
         <button className="size-10 overflow-hidden flex items-center  justify-center rounded-full">
           <div className="flex items-center  justify-center gap-4">
-            <div className="w-10 h-10 rounded-full  dark:bg-slate-700 flex items-center justify-center overflow-hidden">
+            <Link
+              className="w-10 h-10 rounded-full  dark:bg-slate-700 flex items-center justify-center overflow-hidden"
+              to={`/${profile?.fName?.toLowerCase()}/settings`}
+            >
+              {console.log(profile)}
               {profile?.img ? (
                 <img
                   src={profile?.img}
@@ -52,7 +57,7 @@ function Header({ setCollapsed, collapsed }) {
               ) : (
                 <User2 className="w-7 h-7 text-slate-400 dark:text-slate-300" />
               )}
-            </div>
+            </Link>
           </div>
         </button>
       </div>

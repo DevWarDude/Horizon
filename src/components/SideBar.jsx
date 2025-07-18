@@ -4,7 +4,6 @@ import { MdLogout } from "react-icons/md";
 import { ClipLoader } from "react-spinners";
 
 import { useLogout } from "../hooks/useLogout";
-// import { cn } from "@/utils/cn"; " "
 
 import PropTypes from "prop-types";
 import { forwardRef } from "react";

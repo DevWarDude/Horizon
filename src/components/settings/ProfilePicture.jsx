@@ -10,13 +10,13 @@ const ProfilePicture = ({
   setProfilePic,
   profile,
   setForm,
-  userId,
+  id,
 }) => {
   const [uploadProgress, setUploadProgress] = useState(0);
 
   const handlePicChange = async (e) => {
     const file = e.target.files[0];
-    if (!file || !userId) return;
+    if (!file || !id) return;
 
     const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
     if (!allowedTypes.includes(file.type)) {
@@ -30,7 +30,7 @@ const ProfilePicture = ({
     }
 
     const fileExt = file.name.split(".").pop();
-    const filePath = `avartar/${userId}-${Date.now()}.${fileExt}`;
+    const filePath = `avartar/${id}-${Date.now()}.${fileExt}`;
 
     setUploadProgress(30);
 
@@ -101,7 +101,6 @@ const ProfilePicture = ({
           <strong>City:</strong> <span>{profile?.city || "—"}</span>
         </div>
         <div className="flex gap-3 md:gap5 items-center sm:text-base">
-          {console.log(profile)}
           <strong>Date of Birth:</strong>{" "}
           <span>{formatDate(profile?.dob?.slice(0, 10)) || "—"}</span>
         </div>
@@ -123,7 +122,7 @@ ProfilePicture.propTypes = {
     img: PropTypes.string,
   }).isRequired,
   setForm: PropTypes.func.isRequired,
-  userId: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default ProfilePicture;

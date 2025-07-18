@@ -35,8 +35,6 @@ const Dashboard = () => {
     }
   }, [authUser, routeFName, profile?.fName, navigate]);
 
-  console.log(profileError);
-
   if (profileLoading) return <div>Loading dashboard...</div>;
   if (profileError) return <div>Failed to load profile</div>;
 

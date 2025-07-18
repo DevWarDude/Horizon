@@ -11,7 +11,7 @@ export function useLogout() {
 
   const logout = async () => {
     try {
-      setIsLoading(true); // Start loading
+      setIsLoading(true);
       const { error } = await supabase.auth.signOut();
       queryClient.clear();
       if (error) throw error;
@@ -23,7 +23,7 @@ export function useLogout() {
       console.error("Logout error:", err.message);
       toast.error("Logout failed. Please check your connection.");
     } finally {
-      setIsLoading(false); // End loading
+      setIsLoading(false);
     }
   };
 

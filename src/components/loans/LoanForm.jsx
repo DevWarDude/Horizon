@@ -25,6 +25,7 @@ const LoanForm = ({
         value={amount}
         onChange={(e) => setAmount(+e.target.value)}
         placeholder="Loan amount"
+        disabled={isLoading}
         className="input-style"
       />
       <input
@@ -32,6 +33,7 @@ const LoanForm = ({
         onChange={(e) => setPurpose(e.target.value)}
         placeholder="Loan purpose"
         className="input-style"
+        disabled={isLoading}
       />
       <button
         onClick={handleRequestLoan}
