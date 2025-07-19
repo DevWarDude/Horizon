@@ -122,7 +122,7 @@
 }
 
 .input-style {
-  @apply px-4 py-2 rounded-md border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-800 dark:text-white focus:outline-none;
+  @apply px-4 py-2 rounded-md border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-800 dark:text-white focus:outline-none sm:w-[50%];
 }
 
 .action-btn {
@@ -141,6 +141,7 @@
   @apply flex flex-col sm:flex-row gap-4;
 }
 
+/* for map */
 @layer base {
   .leaflet-popup .leaflet-popup-content-wrapper {
     @apply bg-[#2d3439] text-[#ececec] rounded px-3;

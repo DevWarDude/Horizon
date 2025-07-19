@@ -21,7 +21,7 @@ const DepositForm = ({
     <div className="form-flex">
       <input
         type="number"
-        value={amount}
+        value={amount > 0 && amount}
         onChange={(e) => setAmount(+e.target.value)}
         placeholder="Enter amount"
         className="input-style"
@@ -47,7 +47,7 @@ const DepositForm = ({
 );
 
 DepositForm.propTypes = {
-  amount: PropTypes.string.isRequired,
+  amount: PropTypes.number.isRequired,
   setAmount: PropTypes.func.isRequired,
   currency: PropTypes.string.isRequired,
   setCurrency: PropTypes.func.isRequired,

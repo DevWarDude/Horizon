@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { FaHandHoldingUsd } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { InfoTooltip } from "../InfoTooltips";
 
 const LoanForm = ({
   amount,
@@ -18,11 +19,12 @@ const LoanForm = ({
   >
     <h3 className="form-title">
       <FaHandHoldingUsd /> Request a Loan
+      <InfoTooltip message="Loan operates in USD" />
     </h3>
     <div className="form-flex">
       <input
         type="number"
-        value={amount}
+        value={amount > 0 && amount}
         onChange={(e) => setAmount(+e.target.value)}
         placeholder="Loan amount"
         disabled={isLoading}
@@ -47,7 +49,7 @@ const LoanForm = ({
 );
 
 LoanForm.propTypes = {
-  amount: PropTypes.string.isRequired,
+  amount: PropTypes.number.isRequired,
   purpose: PropTypes.string.isRequired,
   setAmount: PropTypes.func.isRequired,
   setPurpose: PropTypes.func.isRequired,

@@ -15,7 +15,7 @@ const WithdrawForm = ({ amount, setAmount, handleWithdrawal }) => (
     <div className="form-flex">
       <input
         type="number"
-        value={amount}
+        value={amount > 0 && amount}
         onChange={(e) => setAmount(+e.target.value)}
         placeholder="Enter amount"
         className="input-style"
@@ -32,7 +32,7 @@ const WithdrawForm = ({ amount, setAmount, handleWithdrawal }) => (
 );
 
 WithdrawForm.propTypes = {
-  amount: PropTypes.string.isRequired,
+  amount: PropTypes.number.isRequired,
   setAmount: PropTypes.func.isRequired,
   handleWithdrawal: PropTypes.func.isRequired,
 };

@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import supabase from "../services/supabase";
 import { useLoanData } from "../hooks/useLoanData";
 import { addTransaction } from "../services/transactionService";
-import { formatAmount, getCurrencySymbol } from "../utils/currency";
+import { formatAmount } from "../utils/currency";
 import DepositForm from "../components/loans/DepositForm";
 import LoanForm from "../components/loans/LoanForm";
 import WithdrawForm from "../components/loans/WithdrawForm";
@@ -26,23 +26,15 @@ function Loan() {
     profile,
     isUserLoading,
     refetchProfile,
-    userCurrency,
     balance,
     loan,
-    rate,
-    testRate,
-    convertedBalanceValue,
-    convertedLoanValue,
     loanPurpose: existingLoanPurpose,
   } = useLoanData();
-
-  // loanAmount * rate to store in database
 
   const {
     profile: { fName },
   } = useAuth();
   const navigate = useNavigate();
-  const symbol = getCurrencySymbol(userCurrency);
 
   useEffect(() => {
     document.title = `${fName || "User"}'s Loan | Horizon`;
@@ -75,31 +67,27 @@ function Loan() {
 
     try {
       setIsLoading(true);
-      console.log(userCurrency, loanAmount);
-      console.log(testRate);
 
-      console.log(loanAmount * testRate);
+      const { error } = await supabase
+        .from("profiles")
+        .update({
+          loan: loanAmount,
+          LoanPurpose: loanPurpose,
+        })
+        .eq("id", profile.id);
 
-      // const { error } = await supabase
-      //   .from("profiles")
-      //   .update({
-      //     loan: loanAmount,
-      //     LoanPurpose: loanPurpose,
-      //   })
-      //   .eq("id", profile.id);
+      if (error) throw error;
 
-      // if (error) throw error;
+      await addTransaction({
+        user_id: profile.id,
+        type: "deposit",
+        amount: loanAmount,
+        description: `Loan granted for: ${loanPurpose}`,
+      });
 
-      // await addTransaction({
-      //   user_id: profile.id,
-      //   type: "deposit",
-      //   amount: loanAmount,
-      //   description: `Loan granted for: ${loanPurpose}`,
-      // });
-
-      // toast.success("Loan granted successfully!");
-      // setLoanAmount("");
-      // setLoanPurpose("");
+      toast.success("Loan granted successfully!");
+      setLoanAmount("");
+      setLoanPurpose("");
       await refetchProfile();
     } catch (err) {
       toast.error("Loan request failed.");
@@ -111,20 +99,24 @@ function Loan() {
   const handleRepayLoan = async (e) => {
     e.preventDefault();
 
-    if (!repayAmount || repayAmount <= 0) return;
+    if (!repayAmount || repayAmount <= 0)
+      return toast.error("Enter a valid amount");
+    if (repayAmount > loan)
+      return toast.error("The amount entered exceeds your loan.");
+
     if (repayAmount > balance) return toast.error("Insufficient balance");
 
-    setIsRepaying(true); // 👈 Disable button
+    setIsRepaying(true);
 
-    const remainingLoan = loan - repayAmount;
+    console.log(typeof repayAmount);
+
+    const remainingLoan = repayAmount < loan && loan - repayAmount;
     const updatedLoan = remainingLoan > 0 ? remainingLoan : null;
-    const newBalance = balance - repayAmount;
 
     try {
       const { error } = await supabase
         .from("profiles")
         .update({
-          balance: newBalance,
           loan: updatedLoan,
           LoanPurpose: updatedLoan ? existingLoanPurpose : null,
         })
@@ -141,7 +133,7 @@ function Loan() {
 
       toast.success(
         updatedLoan
-          ? `Repayment successful. Remaining loan: ${symbol}${formatAmount(updatedLoan)}`
+          ? `Repayment successful. Remaining loan: $${formatAmount(updatedLoan)}`
           : "Loan fully repaid!"
       );
 
@@ -154,8 +146,8 @@ function Loan() {
     }
   };
 
-  const formattedBalance = `${symbol}${formatAmount(convertedBalanceValue)}`;
-  const formattedLoan = `${symbol}${formatAmount(convertedLoanValue)}`;
+  const formattedBalance = `$${formatAmount(balance)}`;
+  const formattedLoan = `$${formatAmount(loan)}`;
 
   if (isUserLoading || !profile)
     return (
@@ -192,14 +184,14 @@ function Loan() {
 
       <div className="space-y-8">
         <DepositForm
-          amount={depositAmount}
+          amount={+depositAmount}
           setAmount={setDepositAmount}
           currency={currency}
           setCurrency={setCurrency}
           handleDeposit={handleDeposit}
         />
         <LoanForm
-          amount={loanAmount}
+          amount={+loanAmount}
           purpose={loanPurpose}
           setAmount={setLoanAmount}
           setPurpose={setLoanPurpose}
@@ -207,17 +199,18 @@ function Loan() {
           isLoading={isLoading}
         />
         <WithdrawForm
-          amount={withdrawalAmount}
+          amount={+withdrawalAmount}
           setAmount={setWithdrawalAmount}
           handleWithdrawal={handleWithdrawal}
         />
         {loan > 0 && (
           <RepayForm
-            repayAmount={repayAmount}
+            repayAmount={+repayAmount}
             setRepayAmount={setRepayAmount}
             handleRepayLoan={handleRepayLoan}
             formattedLoan={formattedLoan}
             balance={balance}
+            loan={loan}
             isRepaying={isRepaying}
           />
         )}

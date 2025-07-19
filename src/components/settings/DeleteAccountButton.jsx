@@ -1,15 +1,9 @@
-import { useNavigate } from "react-router-dom";
-import supabase from "../../services/supabase";
 import { toast } from "react-toastify";
 
 const DeleteAccountButton = () => {
-  const navigate = useNavigate();
-
   const handleDeleteAccount = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) return toast.error("Error deleting account");
-    toast.success("Account deleted!");
-    navigate("/sign-in");
+    toast.warning("Unable to delete account");
+    // navigate("/sign-in");
   };
 
   return (

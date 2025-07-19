@@ -93,13 +93,12 @@ const RecentTransactions = ({ transactions, isLoading, error, currency }) => {
 RecentTransactions.propTypes = {
   transactions: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      type: PropTypes.oneOf(["deposit", "withdrawal", "transfer", "payment"])
-        .isRequired,
+      id: PropTypes.number.isRequired,
+      type: PropTypes.oneOf(["deposit", "withdrawal", "transfer", "payment"]),
       amount: PropTypes.number.isRequired,
       created_at: PropTypes.string.isRequired,
     })
-  ).isRequired,
+  ),
   isLoading: PropTypes.bool,
   error: PropTypes.shape({
     message: PropTypes.string,

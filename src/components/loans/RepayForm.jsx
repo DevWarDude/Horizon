@@ -1,14 +1,15 @@
 import PropTypes from "prop-types";
 import { FaPiggyBank } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { formatAmount } from "../../utils/currency";
 
 const RepayForm = ({
   repayAmount,
   setRepayAmount,
   handleRepayLoan,
-  formattedLoan,
   balance,
   isRepaying,
+  loan,
 }) => (
   <motion.form
     initial={{ opacity: 0, y: 12 }}
@@ -22,9 +23,9 @@ const RepayForm = ({
     <div className="form-flex">
       <input
         type="number"
-        value={repayAmount}
+        value={repayAmount > 0 && repayAmount}
         onChange={(e) => setRepayAmount(+e.target.value)}
-        placeholder={`Enter amount (Loan: ${formattedLoan})`}
+        placeholder={`Enter amount (Loan: $${formatAmount(Number(loan))})`}
         className="input-style"
       />
       <button
@@ -41,7 +42,9 @@ const RepayForm = ({
 RepayForm.propTypes = {
   repayAmount: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
     .isRequired,
+
   setRepayAmount: PropTypes.func.isRequired,
+  loan: PropTypes.number.isRequired,
   handleRepayLoan: PropTypes.func.isRequired,
   formattedLoan: PropTypes.string.isRequired,
   balance: PropTypes.number.isRequired,

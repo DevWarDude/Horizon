@@ -47,7 +47,6 @@ function Header({ setCollapsed, collapsed }) {
               className="w-10 h-10 rounded-full  dark:bg-slate-700 flex items-center justify-center overflow-hidden"
               to={`/${profile?.fName?.toLowerCase()}/settings`}
             >
-              {console.log(profile)}
               {profile?.img ? (
                 <img
                   src={profile?.img}

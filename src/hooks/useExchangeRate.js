@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 
-const fetchExchangeRate = async (currency, baseCurrency = "USD") => {
+const fetchExchangeRate = async (currency) => {
   if (currency === "USD") return 1;
 
   const res = await fetch(
-    `https://api.exchangerate.host/latest?base=${baseCurrency}&symbols=${currency}`
+    `https://api.exchangerate.host/latest?base=USD&symbols=${currency}`
   );
   const data = await res.json();
 
@@ -15,10 +15,10 @@ const fetchExchangeRate = async (currency, baseCurrency = "USD") => {
   return data.rates[currency];
 };
 
-export const useExchangeRate = (currency, baseCurrency) =>
+export const useExchangeRate = (currency) =>
   useQuery({
     queryKey: ["exchange-rate", currency],
-    queryFn: () => fetchExchangeRate(currency, baseCurrency),
+    queryFn: () => fetchExchangeRate(currency),
     enabled: !!currency,
     staleTime: 1000 * 60 * 30,
   });
