@@ -17,6 +17,7 @@ import { useNetworkStatus } from "./hooks/useNetworkStatus";
 import { useAuth } from "./context/AuthContext";
 
 // Pages (Lazy-loaded)
+
 const Login = lazy(() => import("./pages/Login"));
 const SignUp = lazy(() => import("./pages/SignUp"));
 const RedirectHome = lazy(() => import("./pages/RedirectHome"));
