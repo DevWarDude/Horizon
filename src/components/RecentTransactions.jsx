@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { useExchangeRate } from "../hooks/useExchangeRate";
 import { formatCurrency } from "../utils/currency";
+import { formatDate } from "../utils/formatDate";
 
 const RecentTransactions = ({ transactions, isLoading, error, currency }) => {
   const { user: routeFName } = useParams();
@@ -14,7 +15,9 @@ const RecentTransactions = ({ transactions, isLoading, error, currency }) => {
     <div className="bg-slate-100 dark:bg-slate-900 p-4 rounded-lg shadow-md w-full md:flex-1 min-w-0 border dark:border-slate-700 ">
       {isLoading && (
         <div className="flex justify-center items-center ">
-          <p className="text-gray-500 dark:text-gray-400">Loading...</p>
+          <p className="text-gray-500 dark:text-gray-400">
+            Loading transactions...
+          </p>
         </div>
       )}
 
@@ -23,14 +26,14 @@ const RecentTransactions = ({ transactions, isLoading, error, currency }) => {
           <p className="text-red-500">Error: {error.message}</p>
         </div>
       )}
-
+      {/*
       {!transactions?.length && (
         <div className="flex justify-center items-center ">
           <p className="text-gray-500 dark:text-gray-400">
             No transactions yet.
           </p>
         </div>
-      )}
+      )} */}
 
       {!isLoading && !error && (
         <>
@@ -50,7 +53,7 @@ const RecentTransactions = ({ transactions, isLoading, error, currency }) => {
                       {tx.type}
                     </p>
                     <p className="text-gray-500 dark:text-gray-400 text-xs">
-                      {new Date(tx.created_at).toLocaleString()}
+                      {formatDate(tx.created_at)}
                     </p>
                   </div>
                   <div

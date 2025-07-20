@@ -9,6 +9,13 @@ function DateInput({ selectedDate, setSelectedDate, dobError }) {
         Date of Birth
       </label>
       <DatePicker
+        showYearDropdown
+        showMonthDropdown
+        minDate={new Date("1960-01-01")}
+        maxDate={new Date("2010-12-31")}
+        // mode="single"
+        // captionLayout="dropdown"
+        dropdownMode="select"
         selected={selectedDate}
         onChange={(date) => setSelectedDate(date)}
         placeholderText="Choose your birth date"

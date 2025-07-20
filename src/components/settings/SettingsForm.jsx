@@ -44,7 +44,6 @@ const SettingsForm = () => {
   });
 
   const [profilePic, setProfilePic] = useState(null);
-  const [email, setEmail] = useState("");
   const [id, setId] = useState("");
   const [initialForm, setInitialForm] = useState(null);
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
@@ -59,7 +58,6 @@ const SettingsForm = () => {
       else if (!user) navigate("/sign-in");
       else {
         setId(user.id);
-        setEmail(user.email);
       }
     };
     getUser();
@@ -153,16 +151,17 @@ const SettingsForm = () => {
           setForm={setForm}
           id={id}
         />
-
-        <div>
-          <label className="block text-sm">Email</label>
-          <input
-            type="email"
-            value={email}
-            readOnly
-            className="mt-1 w-full border rounded px-3 py-2 dark:bg-slate-800 dark:border-slate-700 lowercase bg-white focus:outline-none"
-          />
-        </div>
+        {profile?.email && (
+          <div>
+            <label className="block text-sm">Email</label>
+            <input
+              type="email"
+              value={profile.email}
+              readOnly
+              className="mt-1 w-full border rounded px-3 py-2 dark:bg-slate-800 dark:border-slate-700 lowercase bg-white focus:outline-none"
+            />
+          </div>
+        )}
 
         <NameInputs form={form} handleChange={handleChange} />
         <CurrencySelector form={form} handleChange={handleChange} />
