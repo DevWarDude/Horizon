@@ -14,7 +14,7 @@ function DateInput({ selectedDate, setSelectedDate, dobError }) {
         minDate={new Date("1960-01-01")}
         maxDate={new Date("2010-12-31")}
         mode="single"
-        captionLayout="dropdown"
+        // captionLayout="dropdown"
         dropdownMode="select"
         selected={selectedDate}
         onChange={(date) => setSelectedDate(date)}

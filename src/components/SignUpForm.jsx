@@ -20,7 +20,7 @@ const BASE_URL = "https://api.bigdatacloud.net/data/reverse-geocode-client";
 export default function SignUpForm() {
   const [selectedDate, setSelectedDate] = useState(null);
   const [dobError, setDobError] = useState("");
-  const [mapPosition, setMapPosition] = useState([40, 0]);
+  const [mapPosition, setMapPosition] = useState({ lat: 40, lng: 2 });
   const [isLoadingGeocoding, setIsLoadingGeocoding] = useState(false);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -44,12 +44,15 @@ export default function SignUpForm() {
   const signUp = useSignUp();
 
   useEffect(() => {
-    if (mapLat && mapLng) setMapPosition([mapLat, mapLng]);
+    if (mapLat && mapLng) setMapPosition({ lat: +mapLat, lng: +mapLng });
   }, [mapLat, mapLng]);
 
   useEffect(() => {
     if (geolocationPosition) {
-      setMapPosition([geolocationPosition.lat, geolocationPosition.lng]);
+      setMapPosition({
+        lat: +geolocationPosition.lat,
+        lng: +geolocationPosition.lng,
+      });
       navigate(
         `?lat=${geolocationPosition.lat}&lng=${geolocationPosition.lng}`
       );
@@ -104,17 +107,16 @@ export default function SignUpForm() {
       });
 
       toast.success("Account created successfully! Redirecting...");
-      navigate(`/${profile.fName.toLowerCase()}/dashboard`, { replace: true });
     } catch (err) {
       toast.error(err.message);
     }
   };
 
-  // useEffect(() => {
-  //   if (user && profile?.fName) {
-  //     navigate(`/${profile.fName.toLowerCase()}/dashboard`, { replace: true });
-  //   }
-  // }, [user, profile, navigate]);
+  useEffect(() => {
+    if (user && profile?.fName) {
+      navigate(`/${profile.fName.toLowerCase()}/dashboard`, { replace: true });
+    }
+  }, [user, profile, navigate]);
 
   if (signUp.isSuccess && (!user || !profile)) {
     return (

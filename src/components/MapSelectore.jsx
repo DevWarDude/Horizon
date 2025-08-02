@@ -29,7 +29,10 @@ MapSelector.propTypes = {
   }),
   getPosition: PropTypes.func.isRequired,
   isLoadingPosition: PropTypes.bool,
-  mapPosition: PropTypes.arrayOf(PropTypes.number),
+  mapPosition: PropTypes.shape({
+    lat: PropTypes.number,
+    lng: PropTypes.number,
+  }),
 };
 
 export default MapSelector;
