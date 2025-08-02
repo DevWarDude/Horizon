@@ -1,5 +1,8 @@
+// MapSelector.jsx
 import PropTypes from "prop-types";
-import Map from "./Map";
+import { lazy, Suspense } from "react";
+
+const LazyMap = lazy(() => import("./Map"));
 
 function MapSelector({
   geolocationPosition,
@@ -12,12 +15,16 @@ function MapSelector({
       <label className="text-gray-700 dark:text-stone-50 font-medium mb-1">
         Use the map to choose your location.
       </label>
-      <Map
-        geolocationPosition={geolocationPosition}
-        getPosition={getPosition}
-        isLoadingPosition={isLoadingPosition}
-        mapPosition={mapPosition}
-      />
+      <Suspense
+        fallback={<div className="text-sm text-gray-500">Loading map...</div>}
+      >
+        <LazyMap
+          geolocationPosition={geolocationPosition}
+          getPosition={getPosition}
+          isLoadingPosition={isLoadingPosition}
+          mapPosition={mapPosition}
+        />
+      </Suspense>
     </div>
   );
 }

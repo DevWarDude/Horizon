@@ -6,6 +6,7 @@ import {
   useMap,
   useMapEvents,
 } from "react-leaflet";
+import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import PropTypes from "prop-types";
 
@@ -17,6 +18,10 @@ const Map = ({
   isLoadingPosition,
   mapPosition,
 }) => {
+  useEffect(() => {
+    import("leaflet/dist/leaflet.css");
+  }, []);
+
   return (
     <div className="flex-1 h-full bg-[#42484d] rounded-[20px] relative mt-2.5">
       {!geolocationPosition && (
@@ -24,6 +29,7 @@ const Map = ({
           {isLoadingPosition ? "Loading..." : "Use your position"}
         </Button>
       )}
+
       <MapContainer
         center={mapPosition}
         zoom={13}
@@ -34,13 +40,16 @@ const Map = ({
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
         />
+
+        {/* Marker shown when position exists */}
         {(geolocationPosition || mapPosition) && (
           <Marker position={mapPosition}>
             <Popup>
-              <span>Testing</span>
+              <span>Selected location</span>
             </Popup>
           </Marker>
         )}
+
         <ChangeCenter position={mapPosition} />
         <DetectClick />
       </MapContainer>
@@ -50,7 +59,11 @@ const Map = ({
 
 function ChangeCenter({ position }) {
   const map = useMap();
-  map.setView(position);
+  useEffect(() => {
+    if (position) {
+      map.setView(position);
+    }
+  }, [map, position]);
   return null;
 }
 
@@ -58,8 +71,13 @@ function DetectClick() {
   const navigate = useNavigate();
 
   useMapEvents({
-    click: (e) => navigate(`?lat=${e.latlng.lat}&lng=${e.latlng.lng}`),
+    click: (e) =>
+      navigate(`?lat=${e.latlng.lat}&lng=${e.latlng.lng}`, {
+        replace: true,
+      }),
   });
+
+  return null;
 }
 
 Map.propTypes = {
@@ -72,9 +90,7 @@ Map.propTypes = {
   mapPosition: PropTypes.shape({
     lat: PropTypes.number.isRequired,
     lng: PropTypes.number.isRequired,
-  }),
+  }).isRequired,
 };
 
 export default Map;
-
-///

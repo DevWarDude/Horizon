@@ -3,17 +3,20 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { PulseLoader } from "react-spinners";
+import { lazy, Suspense } from "react";
 
 import FormInput from "./FormInput";
 import DateInput from "./DateInput";
 import LocationFields from "./LocationFields";
+import Loading from "./LocationFields";
 
 import { useGeolocation } from "../hooks/useGeolocation";
 import { useSignUp } from "../hooks/useSignUP";
 import { addTransaction } from "../services/transactionService";
 import { useAuth } from "../context/AuthContext";
 import { useUserProfile } from "../hooks/useUserProfile";
-import MapSelector from "./MapSelectore";
+
+const MapSelector = lazy(() => import("./MapSelectore"));
 
 const BASE_URL = "https://api.bigdatacloud.net/data/reverse-geocode-client";
 
@@ -128,84 +131,86 @@ export default function SignUpForm() {
   }
 
   return (
-    <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <FormInput
-          label="First Name"
-          name="fName"
-          register={register}
-          rules={{ required: "First name is required" }}
-          errors={errors}
-          placeholder="Enter your first name"
+    <Suspense fallback={<Loading />}>
+      <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <FormInput
+            label="First Name"
+            name="fName"
+            register={register}
+            rules={{ required: "First name is required" }}
+            errors={errors}
+            placeholder="Enter your first name"
+          />
+          <FormInput
+            label="Last Name"
+            name="lName"
+            register={register}
+            rules={{ required: "Last name is required" }}
+            errors={errors}
+            placeholder="Enter your last name"
+          />
+        </div>
+
+        <DateInput
+          selectedDate={selectedDate}
+          setSelectedDate={setSelectedDate}
+          dobError={dobError}
         />
-        <FormInput
-          label="Last Name"
-          name="lName"
+
+        <LocationFields
           register={register}
-          rules={{ required: "Last name is required" }}
           errors={errors}
-          placeholder="Enter your last name"
+          isLoadingGeocoding={isLoadingGeocoding}
         />
-      </div>
 
-      <DateInput
-        selectedDate={selectedDate}
-        setSelectedDate={setSelectedDate}
-        dobError={dobError}
-      />
+        <MapSelector
+          geolocationPosition={geolocationPosition}
+          getPosition={getPosition}
+          isLoadingPosition={isLoadingPosition}
+          mapPosition={mapPosition}
+        />
 
-      <LocationFields
-        register={register}
-        errors={errors}
-        isLoadingGeocoding={isLoadingGeocoding}
-      />
+        <FormInput
+          label="Email"
+          name="email"
+          type="email"
+          register={register}
+          rules={{
+            required: "Email is required",
+            pattern: {
+              value: /^\S+@\S+$/,
+              message: "Enter a valid email",
+            },
+          }}
+          errors={errors}
+          placeholder="Enter your email"
+        />
 
-      <MapSelector
-        geolocationPosition={geolocationPosition}
-        getPosition={getPosition}
-        isLoadingPosition={isLoadingPosition}
-        mapPosition={mapPosition}
-      />
+        <FormInput
+          label="Password"
+          name="password"
+          type="password"
+          register={register}
+          rules={{
+            required: "Password is required",
+            minLength: {
+              value: 6,
+              message: "Password must be at least 6 characters",
+            },
+          }}
+          errors={errors}
+          placeholder="Enter your password"
+        />
 
-      <FormInput
-        label="Email"
-        name="email"
-        type="email"
-        register={register}
-        rules={{
-          required: "Email is required",
-          pattern: {
-            value: /^\S+@\S+$/,
-            message: "Enter a valid email",
-          },
-        }}
-        errors={errors}
-        placeholder="Enter your email"
-      />
-
-      <FormInput
-        label="Password"
-        name="password"
-        type="password"
-        register={register}
-        rules={{
-          required: "Password is required",
-          minLength: {
-            value: 6,
-            message: "Password must be at least 6 characters",
-          },
-        }}
-        errors={errors}
-        placeholder="Enter your password"
-      />
-
-      <button
-        type="submit"
-        disabled={signUp.isPending}
-        className="bg-[#4893ff] text-white font-semibold text-lg rounded-lg py-2 hover:shadow-lg w-full transition-all md:w-fit md:px-8 disabled:opacity-50"
-      >
-        {signUp.isPending ? "Creating account..." : "Sign Up"}
-      </button>
-    </form>
+        <button
+          type="submit"
+          disabled={signUp.isPending}
+          className="bg-[#4893ff] text-white font-semibold text-lg rounded-lg py-2 hover:shadow-lg w-full transition-all md:w-fit md:px-8 disabled:opacity-50"
+        >
+          {signUp.isPending ? "Creating account..." : "Sign Up"}
+        </button>
+      </form>
+    </Suspense>
   );
 }

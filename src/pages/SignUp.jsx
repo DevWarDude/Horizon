@@ -1,5 +1,7 @@
+import { lazy } from "react";
 import { Link } from "react-router-dom";
-import SignUpForm from "../components/SignUpForm";
+
+const SignUpForm = lazy(() => import("./components/SignUpForm"));
 
 export default function SignUp() {
   return (
