@@ -108,8 +108,6 @@ function Loan() {
 
     setIsRepaying(true);
 
-    console.log(typeof repayAmount);
-
     const remainingLoan = repayAmount < loan && loan - repayAmount;
     const updatedLoan = remainingLoan > 0 ? remainingLoan : null;
 

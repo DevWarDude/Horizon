@@ -19,6 +19,8 @@ export function useSignUp() {
         {
           id: user.id,
           email,
+          balance: 20,
+          currency: "USD",
           ...profile,
         },
       ]);

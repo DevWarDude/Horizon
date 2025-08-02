@@ -30,7 +30,7 @@ DateInput.propTypes = {
   selectedDate: PropTypes.oneOfType([
     PropTypes.instanceOf(Date),
     PropTypes.oneOf([null]),
-  ]).isRequired,
+  ]),
   setSelectedDate: PropTypes.func.isRequired,
   dobError: PropTypes.string,
 };

@@ -40,6 +40,7 @@ export default function SignUpForm() {
     getPosition,
     isLoading: isLoadingPosition,
   } = useGeolocation();
+
   const signUp = useSignUp();
 
   useEffect(() => {
@@ -103,16 +104,17 @@ export default function SignUpForm() {
       });
 
       toast.success("Account created successfully! Redirecting...");
+      navigate(`/${profile.fName.toLowerCase()}/dashboard`, { replace: true });
     } catch (err) {
       toast.error(err.message);
     }
   };
 
-  useEffect(() => {
-    if (user && profile?.fName) {
-      navigate(`/${profile.fName.toLowerCase()}/dashboard`, { replace: true });
-    }
-  }, [user, profile, navigate]);
+  // useEffect(() => {
+  //   if (user && profile?.fName) {
+  //     navigate(`/${profile.fName.toLowerCase()}/dashboard`, { replace: true });
+  //   }
+  // }, [user, profile, navigate]);
 
   if (signUp.isSuccess && (!user || !profile)) {
     return (

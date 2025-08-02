@@ -29,7 +29,7 @@ MapSelector.propTypes = {
   }),
   getPosition: PropTypes.func.isRequired,
   isLoadingPosition: PropTypes.bool,
-  mapPosition: PropTypes.arrayOf(PropTypes.number).isRequired,
+  mapPosition: PropTypes.arrayOf(PropTypes.number),
 };
 
 export default MapSelector;
