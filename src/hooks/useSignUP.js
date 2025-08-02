@@ -19,7 +19,7 @@ export function useSignUp() {
         {
           id: user.id,
           email,
-          balance: 20,
+          balance: 20.0,
           ...profile,
         },
       ]);

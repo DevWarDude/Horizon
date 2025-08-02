@@ -12,7 +12,8 @@ const updateUserBalance = async (user_id, amount, type) => {
   const currentBalance = profile?.balance || 0;
 
   const newBalance =
-    type === "deposit" ? currentBalance + amount : currentBalance - amount;
+    (type === "bonus" && currentBalance) ||
+    (type === "deposit" ? currentBalance + amount : currentBalance - amount);
 
   const { error: updateError } = await supabase
     .from("profiles")
