@@ -58,7 +58,9 @@ const RecentTransactions = ({ transactions, isLoading, error, currency }) => {
                   </div>
                   <div
                     className={`font-semibold ${
-                      tx.type === "deposit" ? "text-green-600" : "text-red-500"
+                      tx.type === "deposit" || tx.type === "bonus"
+                        ? "text-green-600"
+                        : "text-red-500"
                     }`}
                   >
                     {isRateLoading ? (
@@ -67,7 +69,9 @@ const RecentTransactions = ({ transactions, isLoading, error, currency }) => {
                       </span>
                     ) : (
                       <>
-                        {tx.type === "deposit" ? "+" : "-"}
+                        {tx.type === "deposit" || tx.type === "bonus"
+                          ? "+"
+                          : "-"}
                         {formatCurrency(convertedAmount, currency)}
                       </>
                     )}
@@ -97,7 +101,13 @@ RecentTransactions.propTypes = {
   transactions: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
-      type: PropTypes.oneOf(["deposit", "withdrawal", "transfer", "payment"]),
+      type: PropTypes.oneOf([
+        "deposit",
+        "withdrawal",
+        "transfer",
+        "payment",
+        "bonus",
+      ]),
       amount: PropTypes.number.isRequired,
       created_at: PropTypes.string.isRequired,
     })

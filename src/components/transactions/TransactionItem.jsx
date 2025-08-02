@@ -10,6 +10,8 @@ import { formatCurrency } from "../../utils/currency";
 
 const typeIcon = (type) => {
   switch (type) {
+    case "bonus":
+      return <BanknotesIcon className="h-5 w-5 text-green-500" />;
     case "deposit":
       return <BanknotesIcon className="h-5 w-5 text-green-500" />;
     case "withdrawal":
@@ -40,7 +42,7 @@ const TransactionItem = ({ tx, exchangeRate, isRateLoading, userCurrency }) => {
 
       <div
         className={`font-semibold text-right sm:text-left ${
-          tx.type === "deposit"
+          tx.type === "deposit" || tx.type === "bonus"
             ? "text-green-500"
             : tx.type === "withdrawal"
               ? "text-red-500"
@@ -53,7 +55,7 @@ const TransactionItem = ({ tx, exchangeRate, isRateLoading, userCurrency }) => {
           </span>
         ) : (
           <>
-            {tx.type === "deposit" ? "+" : "-"}
+            {tx.type === "deposit" || tx.type === "bonus" ? "+" : "-"}
             {formatCurrency(convertedAmount, userCurrency)}
           </>
         )}
@@ -65,7 +67,8 @@ const TransactionItem = ({ tx, exchangeRate, isRateLoading, userCurrency }) => {
 TransactionItem.propTypes = {
   tx: PropTypes.shape({
     amount: PropTypes.number.isRequired,
-    type: PropTypes.oneOf(["deposit", "withdrawal", "transfer"]).isRequired,
+    type: PropTypes.oneOf(["deposit", "withdrawal", "transfer", "bonus"])
+      .isRequired,
     description: PropTypes.string.isRequired,
     created_at: PropTypes.string.isRequired,
   }).isRequired,

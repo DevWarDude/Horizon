@@ -101,12 +101,12 @@ export default function SignUpForm() {
 
       await addTransaction({
         user_id: user.id,
-        type: "deposit",
+        type: "bonus",
         amount: 20,
         description: "🎁 Welcome bonus",
       });
 
-      toast.success("Account created successfully! Redirecting...");
+      toast.success("Account created successfully!");
     } catch (err) {
       toast.error(err.message);
     }
