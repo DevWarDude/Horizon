@@ -1,7 +1,8 @@
-import { lazy } from "react";
+import { lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
+import Loading from "../components/Loading";
 
-const SignUpForm = lazy(() => import("./components/SignUpForm"));
+const SignUpForm = lazy(() => import("../components/SignUpForm"));
 
 export default function SignUp() {
   return (
@@ -21,7 +22,9 @@ export default function SignUp() {
         </div>
       </header>
 
-      <SignUpForm />
+      <Suspense fallback={<Loading />}>
+        <SignUpForm />
+      </Suspense>
 
       <p className="text-center mt-6 text-gray-600 dark:text-gray-400">
         Already have an account?{" "}

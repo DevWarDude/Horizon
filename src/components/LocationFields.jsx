@@ -45,7 +45,7 @@ function LocationFields({ register, errors, isLoadingGeocoding }) {
 }
 
 LocationFields.propTypes = {
-  register: PropTypes.func.isRequired,
+  register: PropTypes.func,
   errors: PropTypes.shape({
     country: PropTypes.shape({
       message: PropTypes.string,

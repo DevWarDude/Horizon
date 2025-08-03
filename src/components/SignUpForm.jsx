@@ -8,13 +8,13 @@ import { lazy, Suspense } from "react";
 import FormInput from "./FormInput";
 import DateInput from "./DateInput";
 import LocationFields from "./LocationFields";
-import Loading from "./LocationFields";
 
 import { useGeolocation } from "../hooks/useGeolocation";
 import { useSignUp } from "../hooks/useSignUP";
 import { addTransaction } from "../services/transactionService";
 import { useAuth } from "../context/AuthContext";
 import { useUserProfile } from "../hooks/useUserProfile";
+import Loading from "./Loading";
 
 const MapSelector = lazy(() => import("./MapSelectore"));
 
